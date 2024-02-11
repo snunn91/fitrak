@@ -5,7 +5,7 @@ import { doCreateUserWithEmailAndPassword } from '../../../firebase/auth'
 
 const Register = () => {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
