@@ -12,7 +12,7 @@ function App() {
   const routesArray = [
     {
       path: "*",
-      element: <Login />,
+      element: <Home />,
     },
     {
       path: "/login",
@@ -35,7 +35,7 @@ function App() {
   return (
     <AuthProvider>
       <Header />
-      <div className="w-full h-screen flex flex-col">{routesElement}</div>
+      <div className="">{routesElement}</div>
     </AuthProvider>
   );
 }

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase/config";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { workouts, weekOptions, getExercisesPPLOne } from "./arrays";
 import { useAuth } from "../../contexts/authContext";
 //NextUI
 import {
   Select,
   SelectItem,
+  Input,
+  Button,
   Card,
   CardHeader,
   CardBody,
@@ -19,103 +22,128 @@ import {
 } from "@nextui-org/react";
 
 const Dashboard = () => {
-  const animals = [
-    { label: "PPL One", value: "pplOne" },
-    { label: "PPL Two", value: "pplTwo" },
-  ];
   const { currentUser } = useAuth();
-  const [inputValue, setInputValue] = useState("");
-  const [workoutType, setWorkoutType] = useState("pplOne"); // Default to pplOne
-  const [exerciseOne, setExerciseOne] = useState("");
-  const [exerciseTwo, setExerciseTwo] = useState("");
-  const [exerciseThree, setExerciseThree] = useState("");
+
+  const [workoutType, setWorkoutType] = useState(
+    localStorage.getItem("workoutType") || "pplOne"
+  );
+
+  const [currentWeek, setCurrentWeek] = useState(
+    localStorage.getItem("currentWeek") || "weekOne"
+  );
+  const exercisesPPLOne = getExercisesPPLOne(currentWeek);
+
+  const [workoutData, setWorkoutData] = useState({});
 
   const [personalDetailsType, setPersonalDetailsType] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
-  const [userData, setUserData] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (currentUser) {
-        const workoutRef = doc(
-          db,
-          "users",
-          currentUser.uid,
-          "workouts",
-          workoutType
-        );
-        try {
-          const docSnap = await getDoc(workoutRef);
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            // Assuming the data fields are named consistently with the state variables
-            setExerciseOne(data[`${workoutType}ExerciseOne`] || "");
-            setExerciseTwo(data[`${workoutType}ExerciseTwo`] || "");
-            setExerciseThree(data[`${workoutType}ExerciseThree`] || "");
-          } else {
-            console.log("No such document!");
-          }
-        } catch (error) {
-          console.error("Error getting document:", error);
+    // Fetch personal details and current week's workout data
+    const fetchDetailsAndWorkout = async () => {
+      if (!currentUser) return;
+      localStorage.setItem("workoutType", workoutType);
+      localStorage.setItem("currentWeek", currentWeek);
+      // Personal details
+      const personalDetailRef = doc(
+        db,
+        "users",
+        currentUser.uid,
+        "personalDetails",
+        "details"
+      );
+      try {
+        const detailSnap = await getDoc(personalDetailRef);
+        if (detailSnap.exists()) {
+          setFirstName(detailSnap.data().firstName || "");
+          setLastName(detailSnap.data().lastName || "");
         }
+      } catch (error) {
+        console.error("Error getting personal details:", error);
+      }
 
-        const personalDetailRef = doc(
-          db,
-          "users",
-          currentUser.uid,
-          "personalDetails",
-          "details",
-          personalDetailsType
-        );
-        try {
-          const docSnap = await getDoc(personalDetailRef);
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            setFirstName(data.firstName || "");
-            setLastName(data.lastName || "");
-          } else {
-            console.log("No such document!");
-          }
-        } catch (error) {
-          console.error("Error getting document:", error);
+      // Current week's workout data
+      const weekRef = doc(
+        db,
+        "users",
+        currentUser.uid,
+        "workouts",
+        workoutType,
+        "Week",
+        currentWeek
+      );
+      try {
+        const weekSnap = await getDoc(weekRef);
+        if (weekSnap.exists()) {
+          const data = weekSnap.data();
+          setWorkoutData({
+            exerciseOne: data.exerciseOne || "",
+            exerciseTwo: data.exerciseTwo || "",
+            exerciseThree: data.exerciseThree || "",
+            exerciseFour: data.exerciseFour || "",
+            exerciseFive: data.exerciseFive || "",
+            exerciseSix: data.exerciseSix || "",
+            exerciseSeven: data.exerciseSeven || "",
+            exerciseEight: data.exerciseEight || "",
+            exerciseNine: data.exerciseNine || "",
+            exerciseTen: data.exerciseTen || "",
+            exerciseEleven: data.exerciseEleven || "",
+            exerciseTwelve: data.exerciseTwelve || "",
+            exerciseThirteen: data.exerciseThirteen || "",
+            exerciseFourteen: data.exerciseFourteen || "",
+            exerciseFifteen: data.exerciseFifteen || "",
+            exerciseSixteen: data.exerciseSixteen || "",
+            exerciseSeventeen: data.exerciseSeventeen || "",
+            exerciseEighteen: data.exerciseEighteen || "",
+            exerciseNineteen: data.exerciseNineteen || "",
+            exerciseTwenty: data.exerciseTwenty || "",
+          });
         }
+      } catch (error) {
+        console.error(`Error getting data for ${currentWeek}:`, error);
       }
     };
 
-    fetchData();
-  }, [currentUser, workoutType, personalDetailsType]);
+    fetchDetailsAndWorkout();
+  }, [currentUser, workoutType, currentWeek]);
 
+  const handleInputChange = (e, field) => {
+    setWorkoutData((prevData) => ({
+      ...prevData,
+      [field]: e.target.value,
+    }));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true);
     if (!currentUser) {
+      setIsSubmitting(false);
       console.error("No user logged in");
       return;
     }
 
-    const workoutRef = doc(
+    // Submitting to the specific week document under the selected workout
+    const weekRef = doc(
       db,
       "users",
       currentUser.uid,
       "workouts",
-      workoutType
+      workoutType,
+      "Week",
+      currentWeek
     );
     try {
-      await setDoc(
-        workoutRef,
-        {
-          [`${workoutType}ExerciseOne`]: exerciseOne,
-          [`${workoutType}ExerciseTwo`]: exerciseTwo,
-          [`${workoutType}ExerciseThree`]: exerciseThree,
-          // Add more sets as needed
-        },
-        { merge: true }
-      );
-      console.log(`${workoutType} data successfully written!`);
+      await setDoc(weekRef, workoutData, { merge: true });
+      console.log(`${workoutType} ${currentWeek} data successfully updated!`);
     } catch (error) {
-      console.error(`Error writing ${workoutType} data: `, error);
+      console.error(
+        `Error updating ${workoutType} ${currentWeek} data: `,
+        error
+      );
+    } finally {
+      setIsSubmitting(false); // Stop loading regardless of the outcome
     }
   };
   const handleUserDetailsSubmit = async (e) => {
@@ -149,40 +177,51 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <div className="primary-height mx-6">
       <form onSubmit={handleUserDetailsSubmit}>
-        <div className="mt-20">
-          <input
-            type="text"
-            id="firstNameInput"
-            placeholder="first name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <input
-            type="text"
-            id="lastNameInput"
-            placeholder="last name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </div>
+        <input
+          type="text"
+          id="firstNameInput"
+          placeholder="first name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <input
+          type="text"
+          id="lastNameInput"
+          placeholder="last name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+
         <button type="submit">Save User Details</button>
       </form>
+
       <Select
         label="Select an animal"
-        className="max-w-xs mt-20"
+        className="max-w-xs"
         value={workoutType}
         onChange={(e) => setWorkoutType(e.target.value)}>
-        {animals.map((animal) => (
-          <SelectItem key={animal.value} value={animal.value}>
-            {animal.label}
+        {workouts.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </Select>
+
+      <Select
+        label="Select Week"
+        className="max-w-xs mt-4"
+        value={currentWeek}
+        onChange={(e) => setCurrentWeek(e.target.value)}>
+        {weekOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
           </SelectItem>
         ))}
       </Select>
       <div className="text-2xl font-bold pt-14">
-        Hello {currentUser?.displayName || currentUser?.email}, you are now
-        logged in. Welcome to the Dashboard
+        Hello {firstName}, you are now logged in. Welcome to the Dashboard
       </div>
       {/* <div>
                 <label htmlFor="workoutType">Select Workout Plan:</label>
@@ -192,15 +231,81 @@ const Dashboard = () => {
                 </select>
             </div> */}
       <form onSubmit={handleSubmit}>
-        <div>
+        {workoutType === "pplOne" && (
           <Card className="max-w-full">
             <CardHeader className="flex gap-3">
               <div className="flex flex-col">
                 <p className="text-md">{workoutType}</p>
+                <p className="text-md">
+                  {
+                    weekOptions.find((option) => option.value === currentWeek)
+                      ?.label
+                  }
+                </p>
+              </div>
+              <div></div>
+            </CardHeader>
+            <Divider />
+            <CardBody>
+              {/* PPL One Table */}
+              <div className="max-h-[23rem] overflow-y-scroll">
+                <Table isStriped aria-label="Example static collection table">
+                  <TableHeader>
+                    <TableColumn></TableColumn>
+                    <TableColumn>Exercise</TableColumn>
+                    <TableColumn>Warm up Sets</TableColumn>
+                    <TableColumn>Working Sets</TableColumn>
+                    <TableColumn>Reps</TableColumn>
+                    <TableColumn>Weight</TableColumn>
+                    <TableColumn>RPE</TableColumn>
+                    <TableColumn>Rest Time</TableColumn>
+                  </TableHeader>
+                  <TableBody>
+                    {exercisesPPLOne.map((exercise) => (
+                      <TableRow key={exercise.id}>
+                        <TableCell>{exercise.type}</TableCell>
+                        <TableCell>{exercise.name}</TableCell>
+                        <TableCell>{exercise.warmUpSets}</TableCell>
+                        <TableCell>{exercise.workingSets}</TableCell>
+                        <TableCell>{exercise.reps}</TableCell>
+                        <TableCell>
+                          <Input
+                            type="text"
+                            placeholder="add weight"
+                            variant="underlined"
+                            size="sm"
+                            id={`${exercise.id}Input`}
+                            value={workoutData[exercise.id]}
+                            onChange={(e) => handleInputChange(e, exercise.id)}
+                          />
+                        </TableCell>
+                        <TableCell>{exercise.RPE}</TableCell>
+                        <TableCell>{exercise.rest}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardBody>
+          </Card>
+        )}
+        {workoutType === "pplTwo" && (
+          <Card className="max-w-full">
+            <CardHeader className="flex gap-3">
+              <div className="flex flex-col">
+                <p className="text-md">{workoutType}</p>
+                <p className="text-md">
+                  {
+                    weekOptions.find((option) => option.value === currentWeek)
+                      ?.label
+                  }
+                </p>
               </div>
             </CardHeader>
             <Divider />
             <CardBody>
+              {/* PPL One Table */}
+
               <Table isStriped aria-label="Example static collection table">
                 <TableHeader>
                   <TableColumn></TableColumn>
@@ -215,16 +320,16 @@ const Dashboard = () => {
                 <TableBody>
                   <TableRow key="1">
                     <TableCell>Push</TableCell>
-                    <TableCell>Barbell Bench Press</TableCell>
+                    <TableCell>Dumbbell Bench Press</TableCell>
                     <TableCell>3</TableCell>
                     <TableCell>3</TableCell>
-                    <TableCell>8-10</TableCell>
+                    <TableCell>10-12</TableCell>
                     <TableCell>
                       <input
                         type="text"
                         id="exerciseOneInput"
-                        value={exerciseOne}
-                        onChange={(e) => setExerciseOne(e.target.value)}
+                        value={workoutData.exerciseOne}
+                        onChange={(e) => handleInputChange(e, "exerciseOne")}
                       />
                     </TableCell>
                     <TableCell>9</TableCell>
@@ -232,16 +337,16 @@ const Dashboard = () => {
                   </TableRow>
                   <TableRow key="2">
                     <TableCell></TableCell>
-                    <TableCell>Dumbbell Shoulder Press</TableCell>
+                    <TableCell>machine Shoulder Press</TableCell>
                     <TableCell>2</TableCell>
                     <TableCell>3</TableCell>
-                    <TableCell>8-10</TableCell>
+                    <TableCell>10</TableCell>
                     <TableCell>
                       <input
                         type="text"
                         id="exerciseTwoInput"
-                        value={exerciseTwo}
-                        onChange={(e) => setExerciseTwo(e.target.value)}
+                        value={workoutData.exerciseTwo}
+                        onChange={(e) => handleInputChange(e, "exerciseTwo")}
                       />
                     </TableCell>
                     <TableCell>9</TableCell>
@@ -251,7 +356,7 @@ const Dashboard = () => {
               </Table>
             </CardBody>
           </Card>
-        </div>
+        )}
         {/* <label htmlFor="exerciseInput">{workoutType} Exercise Set One:</label>
         <input
           type="text"
@@ -260,7 +365,9 @@ const Dashboard = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         /> */}
-        <button type="submit">Submit</button>
+        <Button isLoading={isSubmitting} type="submit">
+          Submit
+        </Button>
       </form>
       {/* {Object.keys(userData).length > 0 ? (
         <div className="mt-20">
@@ -274,7 +381,7 @@ const Dashboard = () => {
       ) : (
         <p>No data available. Please submit some workout data.</p>
       )} */}
-    </>
+    </div>
   );
 };
 
