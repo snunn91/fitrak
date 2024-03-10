@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase/config";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { workouts, weekOptions, getExercisesPPLOne } from "./arrays";
+import {
+  trainingTypeOptions,
+  workouts,
+  weekOptions,
+  getExercisesBBPPLOne,
+  getExercisesPBPPLOne,
+} from "./arrays";
 import { useAuth } from "../../contexts/authContext";
 //NextUI
 import {
@@ -24,6 +30,9 @@ import {
 const Dashboard = () => {
   const { currentUser } = useAuth();
 
+  const [trainingType, setTrainingType] = useState(
+    localStorage.getItem("trainingType") || "bodybuilding"
+  );
   const [workoutType, setWorkoutType] = useState(
     localStorage.getItem("workoutType") || "pplOne"
   );
@@ -31,7 +40,10 @@ const Dashboard = () => {
   const [currentWeek, setCurrentWeek] = useState(
     localStorage.getItem("currentWeek") || "weekOne"
   );
-  const exercisesPPLOne = getExercisesPPLOne(currentWeek);
+
+  //Workout Plans
+  const exercisesBBPPLOne = getExercisesBBPPLOne(currentWeek);
+  const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
   const [workoutData, setWorkoutData] = useState({});
 
@@ -69,9 +81,11 @@ const Dashboard = () => {
         db,
         "users",
         currentUser.uid,
+        "trainingType",
+        trainingType,
         "workouts",
         workoutType,
-        "Week",
+        "week",
         currentWeek
       );
       try {
@@ -107,7 +121,7 @@ const Dashboard = () => {
     };
 
     fetchDetailsAndWorkout();
-  }, [currentUser, workoutType, currentWeek]);
+  }, [currentUser, trainingType, workoutType, currentWeek]);
 
   const handleInputChange = (e, field) => {
     setWorkoutData((prevData) => ({
@@ -129,17 +143,21 @@ const Dashboard = () => {
       db,
       "users",
       currentUser.uid,
+      "trainingType",
+      trainingType,
       "workouts",
       workoutType,
-      "Week",
+      "week",
       currentWeek
     );
     try {
       await setDoc(weekRef, workoutData, { merge: true });
-      console.log(`${workoutType} ${currentWeek} data successfully updated!`);
+      console.log(
+        `${workoutType} ${trainingType} ${currentWeek} data successfully updated!`
+      );
     } catch (error) {
       console.error(
-        `Error updating ${workoutType} ${currentWeek} data: `,
+        `Error updating ${workoutType} ${trainingType} ${currentWeek} data: `,
         error
       );
     } finally {
@@ -196,13 +214,23 @@ const Dashboard = () => {
 
         <button type="submit">Save User Details</button>
       </form>
-
       <Select
-        label="Select an animal"
+        label="Select a workout plan"
         className="max-w-xs"
         value={workoutType}
         onChange={(e) => setWorkoutType(e.target.value)}>
         {workouts.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </Select>
+      <Select
+        label="Select a method of training"
+        className="max-w-xs"
+        value={trainingType}
+        onChange={(e) => setTrainingType(e.target.value)}>
+        {trainingTypeOptions.map((option) => (
           <SelectItem key={option.value} value={option.value}>
             {option.label}
           </SelectItem>
@@ -231,11 +259,23 @@ const Dashboard = () => {
                 </select>
             </div> */}
       <form onSubmit={handleSubmit}>
-        {workoutType === "pplOne" && (
+        {trainingType === "bodybuilding" && workoutType === "pplOne" && (
           <Card className="max-w-full">
             <CardHeader className="flex gap-3">
               <div className="flex flex-col">
-                <p className="text-md">{workoutType}</p>
+                <p>
+                  {
+                    trainingTypeOptions.find(
+                      (option) => option.value === trainingType
+                    )?.label
+                  }
+                </p>
+                <p className="text-md">
+                  {
+                    workouts.find((option) => option.value === workoutType)
+                      ?.label
+                  }
+                </p>
                 <p className="text-md">
                   {
                     weekOptions.find((option) => option.value === currentWeek)
@@ -248,8 +288,12 @@ const Dashboard = () => {
             <Divider />
             <CardBody>
               {/* PPL One Table */}
-              <div className="max-h-[23rem] overflow-y-scroll">
-                <Table isStriped aria-label="Example static collection table">
+              <div>
+                <Table
+                  isHeaderSticky
+                  isStriped
+                  className="max-h-[23rem] overflow-y-scroll"
+                  aria-label="Example static collection table">
                   <TableHeader>
                     <TableColumn></TableColumn>
                     <TableColumn>Exercise</TableColumn>
@@ -261,7 +305,7 @@ const Dashboard = () => {
                     <TableColumn>Rest Time</TableColumn>
                   </TableHeader>
                   <TableBody>
-                    {exercisesPPLOne.map((exercise) => (
+                    {exercisesBBPPLOne.map((exercise) => (
                       <TableRow key={exercise.id}>
                         <TableCell>{exercise.type}</TableCell>
                         <TableCell>{exercise.name}</TableCell>
@@ -289,10 +333,11 @@ const Dashboard = () => {
             </CardBody>
           </Card>
         )}
-        {workoutType === "pplTwo" && (
+        {trainingType === "powerbuilding" && workoutType === "pplOne" && (
           <Card className="max-w-full">
             <CardHeader className="flex gap-3">
               <div className="flex flex-col">
+                <p>{trainingType}</p>
                 <p className="text-md">{workoutType}</p>
                 <p className="text-md">
                   {
@@ -301,70 +346,57 @@ const Dashboard = () => {
                   }
                 </p>
               </div>
+              <div></div>
             </CardHeader>
             <Divider />
             <CardBody>
               {/* PPL One Table */}
-
-              <Table isStriped aria-label="Example static collection table">
-                <TableHeader>
-                  <TableColumn></TableColumn>
-                  <TableColumn>Exercise</TableColumn>
-                  <TableColumn>Warm up Sets</TableColumn>
-                  <TableColumn>Working Sets</TableColumn>
-                  <TableColumn>Reps</TableColumn>
-                  <TableColumn>Weight</TableColumn>
-                  <TableColumn>RPE</TableColumn>
-                  <TableColumn>Rest Time</TableColumn>
-                </TableHeader>
-                <TableBody>
-                  <TableRow key="1">
-                    <TableCell>Push</TableCell>
-                    <TableCell>Dumbbell Bench Press</TableCell>
-                    <TableCell>3</TableCell>
-                    <TableCell>3</TableCell>
-                    <TableCell>10-12</TableCell>
-                    <TableCell>
-                      <input
-                        type="text"
-                        id="exerciseOneInput"
-                        value={workoutData.exerciseOne}
-                        onChange={(e) => handleInputChange(e, "exerciseOne")}
-                      />
-                    </TableCell>
-                    <TableCell>9</TableCell>
-                    <TableCell>2-3mins</TableCell>
-                  </TableRow>
-                  <TableRow key="2">
-                    <TableCell></TableCell>
-                    <TableCell>machine Shoulder Press</TableCell>
-                    <TableCell>2</TableCell>
-                    <TableCell>3</TableCell>
-                    <TableCell>10</TableCell>
-                    <TableCell>
-                      <input
-                        type="text"
-                        id="exerciseTwoInput"
-                        value={workoutData.exerciseTwo}
-                        onChange={(e) => handleInputChange(e, "exerciseTwo")}
-                      />
-                    </TableCell>
-                    <TableCell>9</TableCell>
-                    <TableCell>2-3mins</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+              <div>
+                <Table
+                  isHeaderSticky
+                  isStriped
+                  className="max-h-[23rem] overflow-y-scroll"
+                  aria-label="Example static collection table">
+                  <TableHeader>
+                    <TableColumn></TableColumn>
+                    <TableColumn>Exercise</TableColumn>
+                    <TableColumn>Warm up Sets</TableColumn>
+                    <TableColumn>Working Sets</TableColumn>
+                    <TableColumn>Reps</TableColumn>
+                    <TableColumn>Weight</TableColumn>
+                    <TableColumn>RPE</TableColumn>
+                    <TableColumn>Rest Time</TableColumn>
+                  </TableHeader>
+                  <TableBody>
+                    {exercisesPBPPLOne.map((exercise) => (
+                      <TableRow key={exercise.id}>
+                        <TableCell>{exercise.type}</TableCell>
+                        <TableCell>{exercise.name}</TableCell>
+                        <TableCell>{exercise.warmUpSets}</TableCell>
+                        <TableCell>{exercise.workingSets}</TableCell>
+                        <TableCell>{exercise.reps}</TableCell>
+                        <TableCell>
+                          <Input
+                            type="text"
+                            placeholder="add weight"
+                            variant="underlined"
+                            size="sm"
+                            id={`${exercise.id}Input`}
+                            value={workoutData[exercise.id]}
+                            onChange={(e) => handleInputChange(e, exercise.id)}
+                          />
+                        </TableCell>
+                        <TableCell>{exercise.RPE}</TableCell>
+                        <TableCell>{exercise.rest}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </CardBody>
           </Card>
         )}
-        {/* <label htmlFor="exerciseInput">{workoutType} Exercise Set One:</label>
-        <input
-          type="text"
-          id="exerciseInput"
-          placeholder={`Enter ${workoutType} exercise one`}
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        /> */}
+
         <Button isLoading={isSubmitting} type="submit">
           Submit
         </Button>
