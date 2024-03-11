@@ -4,10 +4,10 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import {
   trainingTypeOptions,
   workouts,
+  workoutMapping,
   weekOptions,
-  getExercisesBBPPLOne,
-  getExercisesPBPPLOne,
 } from "./arrays";
+import { getExercisesBBPPLOne, getExercisesPBPPLOne } from "../util/workouts";
 import { useAuth } from "../../contexts/authContext";
 //NextUI
 import {
@@ -18,6 +18,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  CardFooter,
   Divider,
   Table,
   TableHeader,
@@ -52,12 +53,15 @@ const Dashboard = () => {
   const [lastName, setLastName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [filteredWorkouts, setFilteredWorkouts] = useState([]);
+
   useEffect(() => {
     // Fetch personal details and current week's workout data
     const fetchDetailsAndWorkout = async () => {
       if (!currentUser) return;
       localStorage.setItem("workoutType", workoutType);
       localStorage.setItem("currentWeek", currentWeek);
+      localStorage.setItem("trainingType", trainingType);
       // Personal details
       const personalDetailRef = doc(
         db,
@@ -122,6 +126,20 @@ const Dashboard = () => {
 
     fetchDetailsAndWorkout();
   }, [currentUser, trainingType, workoutType, currentWeek]);
+
+  useEffect(() => {
+    const filteredWorkoutOptions = workouts.filter((workout) =>
+      workoutMapping[trainingType]?.includes(workout.value)
+    );
+    setFilteredWorkouts(filteredWorkoutOptions);
+
+    // Reset workoutType if it's not available in the new trainingType
+    if (
+      !filteredWorkoutOptions.some((option) => option.value === workoutType)
+    ) {
+      setWorkoutType(filteredWorkoutOptions[0]?.value || "");
+    }
+  }, [trainingType, workoutType]);
 
   const handleInputChange = (e, field) => {
     setWorkoutData((prevData) => ({
@@ -215,22 +233,22 @@ const Dashboard = () => {
         <button type="submit">Save User Details</button>
       </form>
       <Select
-        label="Select a workout plan"
+        label="Select a method of training"
         className="max-w-xs"
-        value={workoutType}
-        onChange={(e) => setWorkoutType(e.target.value)}>
-        {workouts.map((option) => (
+        value={trainingType}
+        onChange={(e) => setTrainingType(e.target.value)}>
+        {trainingTypeOptions.map((option) => (
           <SelectItem key={option.value} value={option.value}>
             {option.label}
           </SelectItem>
         ))}
       </Select>
       <Select
-        label="Select a method of training"
+        label="Select a workout plan"
         className="max-w-xs"
-        value={trainingType}
-        onChange={(e) => setTrainingType(e.target.value)}>
-        {trainingTypeOptions.map((option) => (
+        value={workoutType}
+        onChange={(e) => setWorkoutType(e.target.value)}>
+        {filteredWorkouts.map((option) => (
           <SelectItem key={option.value} value={option.value}>
             {option.label}
           </SelectItem>
@@ -259,35 +277,32 @@ const Dashboard = () => {
                 </select>
             </div> */}
       <form onSubmit={handleSubmit}>
-        {trainingType === "bodybuilding" && workoutType === "pplOne" && (
-          <Card className="max-w-full">
-            <CardHeader className="flex gap-3">
-              <div className="flex flex-col">
-                <p>
-                  {
-                    trainingTypeOptions.find(
-                      (option) => option.value === trainingType
-                    )?.label
-                  }
-                </p>
-                <p className="text-md">
-                  {
-                    workouts.find((option) => option.value === workoutType)
-                      ?.label
-                  }
-                </p>
-                <p className="text-md">
-                  {
-                    weekOptions.find((option) => option.value === currentWeek)
-                      ?.label
-                  }
-                </p>
-              </div>
-              <div></div>
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              {/* PPL One Table */}
+        <Card className="max-w-full">
+          <CardHeader className="flex gap-3">
+            <div className="flex flex-col">
+              <p>
+                {
+                  trainingTypeOptions.find(
+                    (option) => option.value === trainingType
+                  )?.label
+                }
+              </p>
+              <p className="text-md">
+                {workouts.find((option) => option.value === workoutType)?.label}
+              </p>
+              <p className="text-md">
+                {
+                  weekOptions.find((option) => option.value === currentWeek)
+                    ?.label
+                }
+              </p>
+            </div>
+            <div></div>
+          </CardHeader>
+          <Divider />
+
+          <CardBody>
+            {trainingType === "bodybuilding" && workoutType === "pplOne" && (
               <div>
                 <Table
                   isHeaderSticky
@@ -330,27 +345,8 @@ const Dashboard = () => {
                   </TableBody>
                 </Table>
               </div>
-            </CardBody>
-          </Card>
-        )}
-        {trainingType === "powerbuilding" && workoutType === "pplOne" && (
-          <Card className="max-w-full">
-            <CardHeader className="flex gap-3">
-              <div className="flex flex-col">
-                <p>{trainingType}</p>
-                <p className="text-md">{workoutType}</p>
-                <p className="text-md">
-                  {
-                    weekOptions.find((option) => option.value === currentWeek)
-                      ?.label
-                  }
-                </p>
-              </div>
-              <div></div>
-            </CardHeader>
-            <Divider />
-            <CardBody>
-              {/* PPL One Table */}
+            )}
+            {trainingType === "powerbuilding" && workoutType === "pplOne" && (
               <div>
                 <Table
                   isHeaderSticky
@@ -368,7 +364,7 @@ const Dashboard = () => {
                     <TableColumn>Rest Time</TableColumn>
                   </TableHeader>
                   <TableBody>
-                    {exercisesPBPPLOne.map((exercise) => (
+                    {exercisesBBPPLOne.map((exercise) => (
                       <TableRow key={exercise.id}>
                         <TableCell>{exercise.type}</TableCell>
                         <TableCell>{exercise.name}</TableCell>
@@ -393,13 +389,14 @@ const Dashboard = () => {
                   </TableBody>
                 </Table>
               </div>
-            </CardBody>
-          </Card>
-        )}
-
-        <Button isLoading={isSubmitting} type="submit">
-          Submit
-        </Button>
+            )}
+          </CardBody>
+          <CardFooter>
+            <Button isLoading={isSubmitting} type="submit">
+              Submit
+            </Button>
+          </CardFooter>
+        </Card>
       </form>
       {/* {Object.keys(userData).length > 0 ? (
         <div className="mt-20">
