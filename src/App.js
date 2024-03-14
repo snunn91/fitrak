@@ -6,6 +6,7 @@ import Header from "./components/header";
 import Home from "./components/home";
 
 import { AuthProvider } from "./contexts/authContext";
+import { ModalProvider } from "./contexts/modalContext/modalContext";
 import { useRoutes } from "react-router-dom";
 
 function App() {
@@ -34,8 +35,10 @@ function App() {
   let routesElement = useRoutes(routesArray);
   return (
     <AuthProvider>
-      <Header />
-      <div className="">{routesElement}</div>
+      <ModalProvider>
+        <Header />
+        <div className="">{routesElement}</div>
+      </ModalProvider>
     </AuthProvider>
   );
 }

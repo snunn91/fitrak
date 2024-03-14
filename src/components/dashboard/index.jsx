@@ -9,6 +9,7 @@ import {
 } from "./arrays";
 import { getExercisesBBPPLOne, getExercisesPBPPLOne } from "../util/workouts";
 import { useAuth } from "../../contexts/authContext";
+import { useModal } from "../../contexts/modalContext/modalContext";
 //NextUI
 import {
   Select,
@@ -26,10 +27,18 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
 } from "@nextui-org/react";
+import WorkoutFilterModal from "./modals/workoutFilterModal";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
+  const { isModalOpen, toggleModal } = useModal();
 
   const [trainingType, setTrainingType] = useState(
     localStorage.getItem("trainingType") || "bodybuilding"
@@ -41,6 +50,7 @@ const Dashboard = () => {
   const [currentWeek, setCurrentWeek] = useState(
     localStorage.getItem("currentWeek") || "weekOne"
   );
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   //Workout Plans
   const exercisesBBPPLOne = getExercisesBBPPLOne(currentWeek);
@@ -182,90 +192,12 @@ const Dashboard = () => {
       setIsSubmitting(false); // Stop loading regardless of the outcome
     }
   };
-  const handleUserDetailsSubmit = async (e) => {
-    e.preventDefault();
-    if (!currentUser) {
-      console.error("No user logged in");
-      return;
-    }
-    const personalDetailRef = doc(
-      db,
-      "users",
-      currentUser.uid,
-      "personalDetails",
-      "details",
-      personalDetailsType
-    );
-    try {
-      await setDoc(
-        personalDetailRef,
-        {
-          userEmail: currentUser.email,
-          firstName: firstName,
-          lastName: lastName,
-        },
-        { merge: true }
-      );
-      console.log(`${personalDetailsType} data successfully written!`);
-    } catch (error) {
-      console.error(`Error writing ${personalDetailsType} data: `, error);
-    }
-  };
 
   return (
     <div className="primary-height mx-6">
-      <form onSubmit={handleUserDetailsSubmit}>
-        <input
-          type="text"
-          id="firstNameInput"
-          placeholder="first name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <input
-          type="text"
-          id="lastNameInput"
-          placeholder="last name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-
-        <button type="submit">Save User Details</button>
-      </form>
-      <Select
-        label="Select a method of training"
-        className="max-w-xs"
-        value={trainingType}
-        onChange={(e) => setTrainingType(e.target.value)}>
-        {trainingTypeOptions.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </Select>
-      <Select
-        label="Select a workout plan"
-        className="max-w-xs"
-        value={workoutType}
-        onChange={(e) => setWorkoutType(e.target.value)}>
-        {filteredWorkouts.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </Select>
-
-      <Select
-        label="Select Week"
-        className="max-w-xs mt-4"
-        value={currentWeek}
-        onChange={(e) => setCurrentWeek(e.target.value)}>
-        {weekOptions.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </Select>
+      <p>
+        {firstName}, {lastName}
+      </p>
       <div className="text-2xl font-bold pt-14">
         Hello {firstName}, you are now logged in. Welcome to the Dashboard
       </div>
@@ -290,12 +222,17 @@ const Dashboard = () => {
               <p className="text-md">
                 {workouts.find((option) => option.value === workoutType)?.label}
               </p>
-              <p className="text-md">
-                {
-                  weekOptions.find((option) => option.value === currentWeek)
-                    ?.label
-                }
-              </p>
+              <Select
+                label="Select Week"
+                className="max-w-xs mt-4"
+                value={currentWeek}
+                onChange={(e) => setCurrentWeek(e.target.value)}>
+                {weekOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </Select>
             </div>
             <div></div>
           </CardHeader>
@@ -398,18 +335,64 @@ const Dashboard = () => {
           </CardFooter>
         </Card>
       </form>
-      {/* {Object.keys(userData).length > 0 ? (
-        <div className="mt-20">
-          <h2>Your Data for {workoutType}</h2>
-          <p>
-            {workoutType} Exercise One:{" "}
-            {userData[`${workoutType}ExerciseOne`] || "No data"}
-          </p>
-          
-        </div>
-      ) : (
-        <p>No data available. Please submit some workout data.</p>
-      )} */}
+
+      {/* <Modal
+        backdrop="opaque"
+        isOpen={isModalOpen}
+        onClose={toggleModal}
+        classNames={{
+          backdrop:
+            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+        }}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Modal Title
+              </ModalHeader>
+              <ModalBody>
+                <Select
+                  label="Select a method of training"
+                  className="max-w-xs"
+                  value={trainingType}
+                  onChange={(e) => setTrainingType(e.target.value)}>
+                  {trainingTypeOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </Select>
+                <Select
+                  label="Select a workout plan"
+                  className="max-w-xs"
+                  value={workoutType}
+                  onChange={(e) => setWorkoutType(e.target.value)}>
+                  {filteredWorkouts.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </Select>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  className="px-4 py-2 text-lg text-white font-roboto font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
+                  onPress={onClose}>
+                  Done
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal> */}
+      <WorkoutFilterModal
+        isModalOpen={isModalOpen}
+        toggleModal={toggleModal}
+        trainingType={trainingType}
+        setTrainingType={setTrainingType}
+        workoutType={workoutType}
+        setWorkoutType={setWorkoutType}
+        filteredWorkouts={filteredWorkouts}></WorkoutFilterModal>
     </div>
   );
 };

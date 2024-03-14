@@ -3,27 +3,32 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/authContext";
 import { doSignOut } from "../../firebase/auth";
 import { Link, Button } from "@nextui-org/react";
+import { useModal } from "../../contexts/modalContext/modalContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { toggleModal } = useModal();
   const { userLoggedIn } = useAuth();
   return (
-    <nav className="flex justify-between px-6 py-3 w-full z-10 sticky top-0 left-0 border-b bg-stone-50">
+    <nav className="flex justify-between px-6 py-3 w-full z-10 sticky top-0 left-0 border-b bg-stone-50 z-20">
       <Link
         className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100"
         href="/home">
         Home
       </Link>
       {userLoggedIn ? (
-        <Link
-          onClick={() => {
-            doSignOut().then(() => {
-              navigate("/login");
-            });
-          }}
-          className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100">
-          Logout
-        </Link>
+        <div>
+          <Link
+            onClick={() => {
+              doSignOut().then(() => {
+                navigate("/login");
+              });
+            }}
+            className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100">
+            Logout
+          </Link>
+          <Button onPress={toggleModal}>Open Modal</Button>
+        </div>
       ) : (
         <div className="flex flex-row justify-end gap-x-3">
           <Link
