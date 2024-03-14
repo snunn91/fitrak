@@ -9,27 +9,34 @@ const Header = () => {
   const { userLoggedIn } = useAuth();
   return (
     <nav className="flex justify-between px-6 py-3 w-full z-10 sticky top-0 left-0 border-b bg-stone-50">
-      <Link className="text-lg text-blue-950"></Link>
+      <Link
+        className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100"
+        href="/home">
+        Home
+      </Link>
       {userLoggedIn ? (
-        <button
+        <Link
           onClick={() => {
             doSignOut().then(() => {
               navigate("/login");
             });
           }}
-          className="text-lg text-blue-950">
+          className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100">
           Logout
-        </button>
+        </Link>
       ) : (
         <div className="flex flex-row justify-end gap-x-3">
-          <Link className="text-lg text-blue-950" href={"/login"}>
+          <Link
+            data-hover="false"
+            className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100"
+            href={"/login"}>
             Login
           </Link>
           <Button
-            variant="solid"
             as={Link}
-            className="text-lg text-stone-50 bg-orange-300"
-            href={"/register"}>
+            className="px-4 py-2 text-lg text-white font-roboto font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
+            href={"/register"}
+            data-hover="false">
             Sign Up
           </Button>
         </div>

@@ -9,7 +9,6 @@ module.exports = {
     extend: {
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
-        "roboto-condensed": ["Roboto Condensed", "sans-serif"],
       },
     },
   },
