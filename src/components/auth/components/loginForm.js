@@ -1,7 +1,7 @@
 // LoginForm.js
 import React from "react";
 import { Link } from "react-router-dom";
-import { Input } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 
 const LoginForm = ({
   email,
@@ -46,7 +46,8 @@ const LoginForm = ({
             value={password}
             onChange={(e) => setPassword(e.target.value)}></Input>
         </div>
-        <button
+        <Button
+          data-hover="false"
           type="submit"
           disabled={isSigningIn || !email || !password || !isEmailValid}
           className={`w-full px-4 py-2 text-white font-medium rounded-lg ${
@@ -55,7 +56,7 @@ const LoginForm = ({
               : "bg-rose-900 hover:bg-rose-950 hover:shadow-xl transition duration-300"
           }`}>
           {isSigningIn ? "Signing In..." : "Sign In"}
-        </button>
+        </Button>
         {errorMessage && (
           <span className="text-red-600 font-bold">{errorMessage}</span>
         )}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navigate, Link, useNavigate } from "react-router-dom";
-import { Input } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 import { useAuth } from "../../../contexts/authContext";
 import { db } from "../../../firebase/config"; // Assuming this is the correct import path
 import { doc, setDoc } from "firebase/firestore";
@@ -175,7 +175,8 @@ const Register = () => {
               <span className="text-red-600 font-bold">{errorMessage}</span>
             )}
 
-            <button
+            <Button
+              data-hover="false"
               type="submit"
               disabled={
                 isRegistering ||
@@ -194,7 +195,7 @@ const Register = () => {
                   : "bg-rose-900 hover:bg-rose-950 hover:shadow-xl transition duration-300"
               }`}>
               {isRegistering ? "Signing Up..." : "Sign Up"}
-            </button>
+            </Button>
             <div className="text-sm text-center">
               Already have an account? {"   "}
               <Link

@@ -6,8 +6,9 @@ import {
   workouts,
   workoutMapping,
   weekOptions,
-} from "./arrays";
-import { getExercisesBBPPLOne, getExercisesPBPPLOne } from "../util/workouts";
+} from "../util/arrays";
+import { getExercisesBBPPLOne } from "../util/workouts/bodybuilding/workouts";
+import { getExercisesPBPPLOne } from "../util/workouts/powerbuilding/workouts";
 import { useAuth } from "../../contexts/authContext";
 import { useModal } from "../../contexts/modalContext/modalContext";
 //NextUI
@@ -27,18 +28,13 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
 } from "@nextui-org/react";
 import WorkoutFilterModal from "./modals/workoutFilterModal";
+import MobileWeightInputModal from "./modals/mobileWeightInput";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
-  const { isModalOpen, toggleModal } = useModal();
+  const { modals, toggleModal } = useModal();
 
   const [trainingType, setTrainingType] = useState(
     localStorage.getItem("trainingType") || "bodybuilding"
@@ -50,20 +46,33 @@ const Dashboard = () => {
   const [currentWeek, setCurrentWeek] = useState(
     localStorage.getItem("currentWeek") || "weekOne"
   );
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   //Workout Plans
   const exercisesBBPPLOne = getExercisesBBPPLOne(currentWeek);
   const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
+  const [activeInputId, setActiveInputId] = useState("");
+
   const [workoutData, setWorkoutData] = useState({});
 
-  const [personalDetailsType, setPersonalDetailsType] = useState("");
+  // const [personalDetailsType, setPersonalDetailsType] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [filteredWorkouts, setFilteredWorkouts] = useState([]);
+
+  //Week gebnerator depending on which training type and workout plan
+  const getWeekOptionsToDisplay = () => {
+    if (trainingType === "bodybuilding" && workoutType === "pplOne") {
+      return weekOptions.slice(0, 10); // First 10 weeks for bodybuilding & pplOne
+    } else if (trainingType === "bodybuilding" && workoutType === "pplTwo") {
+      return weekOptions.slice(0, 10);
+    } else {
+      return weekOptions; // Default to first 10 weeks for other cases
+    }
+  };
+  // Handler when confirming input from the mobile modal
 
   useEffect(() => {
     // Fetch personal details and current week's workout data
@@ -157,6 +166,15 @@ const Dashboard = () => {
       [field]: e.target.value,
     }));
   };
+  const handleConfirmWeightInput = (inputId, inputValue) => {
+    setWorkoutData((prevData) => ({
+      ...prevData,
+      [inputId]: inputValue,
+    }));
+    // Close modal and reset active input ID
+    toggleModal("mobileInputModal");
+    setActiveInputId("");
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -195,46 +213,42 @@ const Dashboard = () => {
 
   return (
     <div className="primary-height mx-6">
-      <p>
+      {/* <p>
         {firstName}, {lastName}
-      </p>
-      <div className="text-2xl font-bold pt-14">
+      </p> */}
+      {/* <div className="text-2xl font-bold pt-14">
         Hello {firstName}, you are now logged in. Welcome to the Dashboard
-      </div>
-      {/* <div>
-                <label htmlFor="workoutType">Select Workout Plan:</label>
-                <select id="workoutType" value={workoutType} onChange={(e) => setWorkoutType(e.target.value)}>
-                    <option value="pplOne">PPL One</option>
-                    <option value="pplTwo">PPL Two</option>
-                </select>
-            </div> */}
-      <form onSubmit={handleSubmit}>
-        <Card className="max-w-full">
-          <CardHeader className="flex gap-3">
+      </div> */}
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center justify-center h-full">
+        <Card className="w-full shadow-xl">
+          <CardHeader className="flex gap-3 w-full items-center justify-between">
             <div className="flex flex-col">
-              <p>
+              <h3 className="font-roboto text-3xl">
                 {
                   trainingTypeOptions.find(
                     (option) => option.value === trainingType
                   )?.label
                 }
-              </p>
-              <p className="text-md">
+              </h3>
+              <h4 cclassName="font-roboto text-xl">
                 {workouts.find((option) => option.value === workoutType)?.label}
-              </p>
+              </h4>
+            </div>
+            {trainingType === "bodybuilding" && workoutType === "pplOne" && (
               <Select
                 label="Select Week"
-                className="max-w-xs mt-4"
+                className="max-w-sm"
                 value={currentWeek}
                 onChange={(e) => setCurrentWeek(e.target.value)}>
-                {weekOptions.map((option) => (
+                {getWeekOptionsToDisplay().map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
                   </SelectItem>
                 ))}
               </Select>
-            </div>
-            <div></div>
+            )}
           </CardHeader>
           <Divider />
 
@@ -273,6 +287,12 @@ const Dashboard = () => {
                             id={`${exercise.id}Input`}
                             value={workoutData[exercise.id]}
                             onChange={(e) => handleInputChange(e, exercise.id)}
+                            onClick={() => {
+                              if (window.innerWidth < 768) {
+                                setActiveInputId(exercise.id); // Set the active input ID
+                                toggleModal("mobileInputModal"); // Open the modal
+                              }
+                            }}
                           />
                         </TableCell>
                         <TableCell>{exercise.RPE}</TableCell>
@@ -336,63 +356,21 @@ const Dashboard = () => {
         </Card>
       </form>
 
-      {/* <Modal
-        backdrop="opaque"
-        isOpen={isModalOpen}
-        onClose={toggleModal}
-        classNames={{
-          backdrop:
-            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
-        }}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                Modal Title
-              </ModalHeader>
-              <ModalBody>
-                <Select
-                  label="Select a method of training"
-                  className="max-w-xs"
-                  value={trainingType}
-                  onChange={(e) => setTrainingType(e.target.value)}>
-                  {trainingTypeOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </Select>
-                <Select
-                  label="Select a workout plan"
-                  className="max-w-xs"
-                  value={workoutType}
-                  onChange={(e) => setWorkoutType(e.target.value)}>
-                  {filteredWorkouts.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </Select>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  className="px-4 py-2 text-lg text-white font-roboto font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
-                  onPress={onClose}>
-                  Done
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal> */}
       <WorkoutFilterModal
-        isModalOpen={isModalOpen}
-        toggleModal={toggleModal}
+        isModalOpen={modals.workoutFilterModal}
+        toggleModal={() => toggleModal("workoutFilterModal")}
         trainingType={trainingType}
         setTrainingType={setTrainingType}
         workoutType={workoutType}
         setWorkoutType={setWorkoutType}
-        filteredWorkouts={filteredWorkouts}></WorkoutFilterModal>
+        filteredWorkouts={filteredWorkouts}
+      />
+      <MobileWeightInputModal
+        isModalOpen={modals.mobileInputModal}
+        toggleModal={() => toggleModal("mobileInputModal")}
+        activeInputId={activeInputId}
+        onConfirm={handleConfirmWeightInput}
+      />
     </div>
   );
 };

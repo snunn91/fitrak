@@ -1,5 +1,5 @@
 import React from "react";
-import { trainingTypeOptions } from "../arrays";
+import { trainingTypeOptions } from "../../util/arrays";
 //NextUI
 import {
   Select,
@@ -39,7 +39,7 @@ function WorkoutFilterModal({
             <ModalBody>
               <Select
                 label="Select a method of training"
-                className="max-w-xs"
+                className=""
                 value={trainingType}
                 onChange={(e) => setTrainingType(e.target.value)}>
                 {trainingTypeOptions.map((option) => (
@@ -50,7 +50,7 @@ function WorkoutFilterModal({
               </Select>
               <Select
                 label="Select a workout plan"
-                className="max-w-xs"
+                className=""
                 value={workoutType}
                 onChange={(e) => setWorkoutType(e.target.value)}>
                 {filteredWorkouts.map((option) => (
@@ -62,6 +62,7 @@ function WorkoutFilterModal({
             </ModalBody>
             <ModalFooter>
               <Button
+                data-hover="false"
                 className="px-4 py-2 text-lg text-white font-roboto font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
                 onPress={onClose}>
                 Done

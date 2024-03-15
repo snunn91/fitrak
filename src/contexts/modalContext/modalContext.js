@@ -5,12 +5,20 @@ const ModalContext = createContext();
 export const useModal = () => useContext(ModalContext);
 
 export const ModalProvider = ({ children }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modals, setModals] = useState({
+    workoutFilterModal: false,
+    mobileInputModal: false,
+  });
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
+  const toggleModal = (modalName) => {
+    setModals((prevModals) => ({
+      ...prevModals,
+      [modalName]: !prevModals[modalName],
+    }));
+  };
 
   return (
-    <ModalContext.Provider value={{ isModalOpen, toggleModal }}>
+    <ModalContext.Provider value={{ modals, toggleModal }}>
       {children}
     </ModalContext.Provider>
   );

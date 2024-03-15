@@ -18,11 +18,12 @@ const workoutMapping = {
   powerbuilding: ["pplOne", "pplTwo", "upperLowerOne", "upperLowerTwo"],
 };
 const workouts = [
-  { label: "PPL One", value: "pplOne" },
-  { label: "PPL Two", value: "pplTwo" },
-  { label: "Full Body One", value: "fullBodyOne" },
-  { label: "Full Body Two", value: "fullBodyTwo" },
-  { label: "Upper Lower One", value: "upperLowerOne" },
+  { label: "Push Pull Legs", value: "pplOne" },
+  { label: "Push Pull Legs", value: "pplTwo" },
+  { label: "Full Body", value: "fullBodyOne" },
+  { label: "Full Body", value: "fullBodyTwo" },
+  { label: "Upper Lower", value: "upperLowerOne" },
+  { label: "Upper Lower", value: "upperLowerTwo" },
 ];
 const weekOptions = [
   { label: "Week 1", value: "weekOne" },
@@ -31,6 +32,12 @@ const weekOptions = [
   { label: "Week 4", value: "weekFour" },
   { label: "Week 5", value: "weekFive" },
   { label: "Week 6", value: "weekSix" },
+  { label: "Week 7", value: "weekSeven" },
+  { label: "Week 8", value: "weekEight" },
+  { label: "Week 9", value: "weekNine" },
+  { label: "Week 10", value: "weekTen" },
+  { label: "Week 11", value: "weekEleven" },
+  { label: "Week 12", value: "weekTwelve" },
 ];
 
 export { trainingTypeOptions, workouts, workoutMapping, weekOptions };

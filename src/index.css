@@ -17,6 +17,11 @@ code {
     monospace;
 }
 
+/* NextUI Edits */
+nav header ul {
+  justify-content: flex-end !important;
+}
+
 @layer utilities {
   .primary-height {
     height: calc(100vh - 65px);
