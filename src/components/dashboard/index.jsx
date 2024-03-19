@@ -8,7 +8,7 @@ import {
   weekOptions,
 } from "../util/arrays";
 import { getExercisesBBPPLOne } from "../util/workouts/bodybuilding/workouts";
-import { getExercisesPBPPLOne } from "../util/workouts/powerbuilding/workouts";
+// import { getExercisesPBPPLOne } from "../util/workouts/powerbuilding/workouts";
 import { useAuth } from "../../contexts/authContext";
 import { useModal } from "../../contexts/modalContext/modalContext";
 //NextUI
@@ -49,7 +49,7 @@ const Dashboard = () => {
 
   //Workout Plans
   const exercisesBBPPLOne = getExercisesBBPPLOne(currentWeek);
-  const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
+  // const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
   const [activeInputId, setActiveInputId] = useState("");
   const [activeExerciseName, setActiveExerciseName] = useState("");

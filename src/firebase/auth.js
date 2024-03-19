@@ -2,9 +2,9 @@ import { auth } from "./config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  sendEmailVerification,
-  updatePassword,
+  // sendPasswordResetEmail,
+  // sendEmailVerification,
+  // updatePassword,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
@@ -20,7 +20,7 @@ export const doSignInWithEmailAndPassword = (email, password) => {
 export const doSignInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
-  const user = result.user;
+  return result.user;
 
   // add user to firestore
 };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/authContext";
-import { Link, Button } from "@nextui-org/react";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,

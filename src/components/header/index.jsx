@@ -17,19 +17,6 @@ import { useModal } from "../../contexts/modalContext/modalContext";
 import Logo from "../../assets/img/header/fitrak-black-test.png";
 
 const Header = () => {
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
-
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { toggleModal } = useModal();

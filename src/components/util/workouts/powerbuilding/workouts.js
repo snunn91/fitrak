@@ -1,4 +1,4 @@
-import { exercises } from "../../exercises";
+// import { exercises } from "../../exercises";
 
 const getExercisesPBPPLOne = (currentWeek) => {
   let adjustment;
