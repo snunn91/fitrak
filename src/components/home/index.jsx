@@ -76,7 +76,7 @@ const Home = () => {
         <div className="bg-rose-900 h-48 w-full skew-y-[-6deg] -translate-y-1/3"></div>
         <div className="bg-rose-900 h-[11rem] mt-[-10rem] w-full"></div>
 
-        <div className="w-full container-sm absolute flex xl:justify-end top-0 xl:top-[-18rem] xl:right-0 xl:flex-row xl:container-lg">
+        <div className="w-full container-sm absolute flex justify-center xl:justify-end top-0 xl:top-[-18rem] xl:right-0 xl:flex-row xl:container-lg">
           {userLoggedIn && <Navigate to={"/dashboard"} replace={true} />}
           <LoginForm
             email={email}
