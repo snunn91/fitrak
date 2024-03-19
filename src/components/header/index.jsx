@@ -34,15 +34,17 @@ const Header = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <div
-            style={{ backgroundImage: `url(${Logo})` }}
-            className="relative h-[23px] w-[120px] bg-cover bg-center bg-no-repeat"></div>
+          <Link href="/home">
+            <div
+              style={{ backgroundImage: `url(${Logo})` }}
+              className="relative h-[23px] w-[120px] bg-cover bg-center bg-no-repeat"></div>
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="flex justify-end items-center">
         {/* <Link
-          className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100"
+          className="text-lg text-gray-700 font-raleway font-semiBold hover:text-gray-800 hover:opacity-100"
           href="/home">
           Home
         </Link> */}
@@ -51,8 +53,8 @@ const Header = () => {
             <NavbarItem className="after:pt-[0.75rem] after:pr-[0] after:pb-[0.75rem] after:pl-[1.25rem] after:border-r after:border-stone-200">
               <Button
                 data-hover="false"
-                className="px-4 py-2 text-md text-white font-roboto rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
-                onPress={() => toggleModal("workoutFilterModal")}>
+                className="px-4 py-2 text-md text-white font-raleway rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
+                onClick={() => toggleModal("workoutFilterModal")}>
                 Start a Workout
               </Button>
             </NavbarItem>
@@ -64,17 +66,17 @@ const Header = () => {
                     navigate("/login");
                   });
                 }}
-                className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100">
+                className="text-lg text-gray-700 font-raleway font-semiBold hover:text-gray-800 hover:opacity-100">
                 Logout
               </Link>
             </NavbarItem>
           </div>
         ) : (
           <div className="flex items-center gap-5 justify-end">
-            <NavbarItem>
+            <NavbarItem className="hidden sm:block">
               <Link
                 data-hover="false"
-                className="text-lg text-gray-700 font-roboto hover:text-gray-800 hover:opacity-100"
+                className="text-lg text-gray-700 font-raleway hover:text-gray-800 hover:opacity-100"
                 href={"/login"}>
                 Login
               </Link>
@@ -82,7 +84,7 @@ const Header = () => {
             <NavbarItem>
               <Button
                 as={Link}
-                className="px-4 py-2 text-lg text-white font-roboto font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
+                className="px-4 py-2 text-lg text-white font-raleway font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
                 href={"/register"}
                 data-hover="false">
                 Sign Up
@@ -94,17 +96,27 @@ const Header = () => {
 
       <NavbarMenu>
         <NavbarMenuItem>
-          <Link
-            className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100"
-            href="#"
-            onPress={() => {
-              setIsMenuOpen();
-              doSignOut().then(() => {
-                navigate("/login");
-              });
-            }}>
-            Logout
-          </Link>
+          <div>
+            {userLoggedIn ? (
+              <Link
+                className="text-lg text-gray-700 font-raleway font-semiBold hover:text-gray-800 hover:opacity-100"
+                href="#"
+                onPress={() => {
+                  setIsMenuOpen();
+                  doSignOut().then(() => {
+                    navigate("/login");
+                  });
+                }}>
+                Logout
+              </Link>
+            ) : (
+              <Link
+                className="text-lg text-gray-700 font-raleway font-semiBold hover:text-gray-800 hover:opacity-100"
+                href="/login">
+                Login
+              </Link>
+            )}
+          </div>
         </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>

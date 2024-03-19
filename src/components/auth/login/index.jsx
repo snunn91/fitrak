@@ -61,7 +61,7 @@ const Login = () => {
     <div>
       {userLoggedIn && <Navigate to={"/dashboard"} replace={true} />}
 
-      <main className="w-full primary-height flex self-center place-content-center place-items-center">
+      <main className="w-full container-sm primary-height flex self-center place-content-center place-items-center">
         <LoginForm
           email={email}
           setEmail={setEmail}

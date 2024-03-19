@@ -21,7 +21,7 @@ const LoginForm = ({
     <div className="w-96 bg-white text-gray-700 space-y-5 p-4 shadow-2xl border rounded-xl z-10">
       <div className="text-center">
         <div className="mt-2">
-          <h3 className="font-roboto font-semibold sm:text-2xl">
+          <h3 className="font-raleway font-semibold sm:text-2xl">
             Welcome Back
           </h3>
         </div>
@@ -61,7 +61,7 @@ const LoginForm = ({
           <span className="text-red-600 font-bold">{errorMessage}</span>
         )}
       </form>
-      <p className="text-center text-sm font-roboto">
+      <p className="text-center text-sm font-raleway">
         Don't have an account?{" "}
         <Link to={"/register"} className="hover:underline font-bold">
           Sign up
@@ -69,7 +69,7 @@ const LoginForm = ({
       </p>
       <div className="flex flex-row text-center w-full">
         <div className="border-b-2 mb-2.5 mr-2 w-full"></div>
-        <div className="text-sm font-roboto font-bold w-fit">OR</div>
+        <div className="text-sm font-raleway font-bold w-fit">OR</div>
         <div className="border-b-2 mb-2.5 ml-2 w-full"></div>
       </div>
       <button

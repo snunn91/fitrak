@@ -33,9 +33,7 @@ function WorkoutFilterModal({
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
-              Modal Title
-            </ModalHeader>
+            <ModalHeader className=""></ModalHeader>
             <ModalBody>
               <Select
                 label="Select a method of training"
@@ -63,7 +61,7 @@ function WorkoutFilterModal({
             <ModalFooter>
               <Button
                 data-hover="false"
-                className="px-4 py-2 text-lg text-white font-roboto font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
+                className="px-4 py-2 text-lg text-white font-raleway font-semiBold rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
                 onPress={onClose}>
                 Done
               </Button>

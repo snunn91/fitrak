@@ -8,6 +8,7 @@ import { Navigate } from "react-router-dom";
 import heroImage from "../../assets/img/homepage/hero.jpg";
 import logo from "../../assets/img/homepage/fitrak.png";
 import LoginForm from "../auth/components/loginForm";
+import { Button, Link } from "@nextui-org/react";
 
 const Home = () => {
   const { userLoggedIn } = useAuth();
@@ -59,7 +60,7 @@ const Home = () => {
     }
   };
   return (
-    <div className="h-full xl:primary-height bg-rose-900 ">
+    <div className="h-full primary-height bg-rose-900 ">
       <div
         style={{ backgroundImage: `url(${heroImage})` }}
         className="relative h-[35rem] w-full bg-cover bg-center bg-no-repeat">
@@ -74,9 +75,9 @@ const Home = () => {
       </div>
       <div className="relative mt-[-1rem]">
         <div className="bg-rose-900 h-48 w-full skew-y-[-6deg] -translate-y-1/3"></div>
-        <div className="bg-rose-900 h-[11rem] mt-[-10rem] w-full"></div>
+        <div className="bg-rose-900 h-0 xl:h-[11rem] mt-[-10rem] w-full"></div>
 
-        <div className="w-full container-sm absolute flex justify-center xl:justify-end top-0 xl:top-[-18rem] xl:right-0 xl:flex-row xl:container-lg">
+        <div className="hidden xl:w-full xl:flex xl:absolute xl:justify-end xl:top-[-18rem] xl:right-0 xl:flex-row xl:container-lg">
           {userLoggedIn && <Navigate to={"/dashboard"} replace={true} />}
           <LoginForm
             email={email}
@@ -91,6 +92,19 @@ const Home = () => {
             handleEmailChange={handleEmailChange}
             setIsEmailValid={setIsEmailValid}
             validateEmail={validateEmail}></LoginForm>
+        </div>
+        <div className="flex items-center justify-center flex-col gap-y-10 relative block container-sm xl:hidden">
+          <h1 className="font-raleway font-light text-2xl text-white text-center">
+            Your Journey Begins Here
+          </h1>
+          <Button
+            color="white"
+            variant="bordered"
+            as={Link}
+            href="/login"
+            className="px-4 py-2 text-md text-white font-raleway rounded-lg">
+            Login
+          </Button>
         </div>
       </div>
       {/* <div className="bg-rose-900 w-full h-auto">

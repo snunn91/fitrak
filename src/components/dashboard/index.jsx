@@ -256,7 +256,7 @@ const Dashboard = () => {
         <Card shadow="md" className="h-full hidden sm:block">
           <CardHeader className="flex gap-3 w-full items-center justify-between">
             <div className="flex flex-col">
-              <h2 className="font-roboto text-3xl">
+              <h2 className="font-raleway text-3xl">
                 {
                   trainingTypeOptions.find(
                     (option) => option.value === trainingType
@@ -264,14 +264,14 @@ const Dashboard = () => {
                 }
               </h2>
               <div className="flex items-center justify-start gap-3">
-                <h3 className="font-roboto text-xl">
+                <h3 className="font-raleway text-xl">
                   {
                     workouts.find((option) => option.value === workoutType)
                       ?.label
                   }
                 </h3>
 
-                <h4 className="font-roboto text-xl">
+                <h4 className="font-raleway text-xl">
                   -&nbsp;
                   {
                     weekOptions.find((option) => option.value === currentWeek)
@@ -350,7 +350,7 @@ const Dashboard = () => {
           <CardFooter className="flex justify-end px-3 pt-0 pb-3">
             <Button
               data-hover="false"
-              className="px-4 py-2 text-md text-white font-roboto rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
+              className="px-4 py-2 text-md text-white font-raleway rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
               isLoading={isSubmitting}
               type="submit">
               {isSubmitting ? "Saving..." : "Save"}
@@ -389,7 +389,7 @@ const Dashboard = () => {
                     index > 0 ? "mt-2" : ""
                   }`}>
                   <div className="flex items-baseline justify-start gap-x-1">
-                    <h2 className="text-xl font-roboto max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
+                    <h2 className="text-xl font-raleway max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
                       {exercise.name}
                     </h2>
                     <p className="text-sm italic">({exercise.typeMobile})</p>

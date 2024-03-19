@@ -26,7 +26,13 @@ const MobileWeightInputModal = ({
   };
 
   return (
-    <Modal isOpen={isModalOpen} onClose={toggleModal}>
+    <Modal
+      isOpen={isModalOpen}
+      onClose={toggleModal}
+      classNames={{
+        backdrop:
+          "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+      }}>
       <ModalContent>
         {(onClose) => (
           <>
