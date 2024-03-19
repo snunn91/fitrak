@@ -232,56 +232,6 @@ const getExercisesPBPPLOne = (currentWeek) => {
       RPE: 9,
       rest: "1-2mins",
     },
-    {
-      id: "exerciseSixteen",
-      type: "Push", // Leave type empty for subsequent rows that share the same type
-      name: "Incline Smith Machine Press",
-      warmUpSets: 2,
-      workingSets: 3,
-      reps: "8-10",
-      RPE: 9,
-      rest: "2-3mins",
-    },
-    {
-      id: "exerciseSeventeen",
-      type: "", // Leave type empty for subsequent rows that share the same type
-      name: "Barbell Overhead Press",
-      warmUpSets: 2,
-      workingSets: 3,
-      reps: "6-8",
-      RPE: 9,
-      rest: "2-3mins",
-    },
-    {
-      id: "exerciseEighteen",
-      type: "", // Leave type empty for subsequent rows that share the same type
-      name: "Dips",
-      warmUpSets: 1,
-      workingSets: 3,
-      reps: "10-12",
-      RPE: 9,
-      rest: "2-3mins",
-    },
-    {
-      id: "exerciseNineteen",
-      type: "", // Leave type empty for subsequent rows that share the same type
-      name: "Eqyptian Lateral Raise",
-      warmUpSets: 1,
-      workingSets: 3,
-      reps: "10-12",
-      RPE: 10,
-      rest: "1-2mins",
-    },
-    {
-      id: "exerciseTwentyOne",
-      type: "", // Leave type empty for subsequent rows that share the same type
-      name: "Cable Tricep Kickbacks",
-      warmUpSets: 0,
-      workingSets: 3,
-      reps: "12-15",
-      RPE: 9,
-      rest: "1-2mins",
-    },
   ];
 };
 

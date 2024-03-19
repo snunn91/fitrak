@@ -21,11 +21,21 @@ code {
 nav header ul {
   justify-content: flex-end !important;
 }
+/* NextUI Table */
+.workout-table thead tr th {
+  background-color: #8e4b5f /*#881337*/;
+  color: white;
+  text-transform: uppercase;
+}
 
 @layer utilities {
   .primary-height {
     height: calc(100vh - 65px);
   }
+  .workout-table {
+    height: calc(100vh - 280px);
+  }
+
   .container-sm {
     margin: 0 auto;
     padding: 0 1rem;

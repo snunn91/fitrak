@@ -36,6 +36,7 @@ const Header = () => {
   const { userLoggedIn } = useAuth();
   return (
     <Navbar
+      isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       className="flex justify-between border-b-1 border-solid border-stone-200"
       maxWidth="full"
@@ -68,10 +69,10 @@ const Header = () => {
                 Start a Workout
               </Button>
             </NavbarItem>
-            <NavbarItem>
+            <NavbarItem className="hidden sm:block">
               <Link
                 href="#"
-                onClick={() => {
+                onPress={() => {
                   doSignOut().then(() => {
                     navigate("/login");
                   });
@@ -105,23 +106,19 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg">
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        <NavbarMenuItem>
+          <Link
+            className="text-lg text-gray-700 font-roboto font-semiBold hover:text-gray-800 hover:opacity-100"
+            href="#"
+            onPress={() => {
+              setIsMenuOpen();
+              doSignOut().then(() => {
+                navigate("/login");
+              });
+            }}>
+            Logout
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );

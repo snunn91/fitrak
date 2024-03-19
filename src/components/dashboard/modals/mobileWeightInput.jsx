@@ -15,6 +15,8 @@ const MobileWeightInputModal = ({
   toggleModal,
   onConfirm,
   activeInputId,
+  activeExercise,
+  isSubmitting,
 }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -28,7 +30,10 @@ const MobileWeightInputModal = ({
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader>Enter Weight</ModalHeader>
+            <ModalHeader>
+              {" "}
+              <p>{activeExercise}</p>
+            </ModalHeader>
             <ModalBody>
               <Input
                 clearable
@@ -44,7 +49,11 @@ const MobileWeightInputModal = ({
               <Button auto flat color="error" onPress={onClose}>
                 Cancel
               </Button>
-              <Button auto onClick={handleConfirm}>
+              <Button
+                isLoading={isSubmitting}
+                auto
+                onClick={handleConfirm}
+                type="submit">
                 Confirm
               </Button>
             </ModalFooter>

@@ -52,12 +52,13 @@ const Dashboard = () => {
   const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
   const [activeInputId, setActiveInputId] = useState("");
+  const [activeExerciseName, setActiveExerciseName] = useState("");
 
   const [workoutData, setWorkoutData] = useState({});
 
   // const [personalDetailsType, setPersonalDetailsType] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [filteredWorkouts, setFilteredWorkouts] = useState([]);
@@ -72,7 +73,12 @@ const Dashboard = () => {
       return weekOptions; // Default to first 10 weeks for other cases
     }
   };
-  // Handler when confirming input from the mobile modal
+  const handleWeekChange = (e) => {
+    const newWeek = e.target.value;
+    setCurrentWeek(newWeek); // Update React state
+    localStorage.setItem("currentWeek", newWeek); // Update local storage
+    console.log("Week updated to:", newWeek);
+  };
 
   useEffect(() => {
     // Fetch personal details and current week's workout data
@@ -82,22 +88,22 @@ const Dashboard = () => {
       localStorage.setItem("currentWeek", currentWeek);
       localStorage.setItem("trainingType", trainingType);
       // Personal details
-      const personalDetailRef = doc(
-        db,
-        "users",
-        currentUser.uid,
-        "personalDetails",
-        "details"
-      );
-      try {
-        const detailSnap = await getDoc(personalDetailRef);
-        if (detailSnap.exists()) {
-          setFirstName(detailSnap.data().firstName || "");
-          setLastName(detailSnap.data().lastName || "");
-        }
-      } catch (error) {
-        console.error("Error getting personal details:", error);
-      }
+      // const personalDetailRef = doc(
+      //   db,
+      //   "users",
+      //   currentUser.uid,
+      //   "personalDetails",
+      //   "details"
+      // );
+      // try {
+      //   const detailSnap = await getDoc(personalDetailRef);
+      //   if (detailSnap.exists()) {
+      //     setFirstName(detailSnap.data().firstName || "");
+      //     setLastName(detailSnap.data().lastName || "");
+      //   }
+      // } catch (error) {
+      //   console.error("Error getting personal details:", error);
+      // }
 
       // Current week's workout data
       const weekRef = doc(
@@ -166,14 +172,41 @@ const Dashboard = () => {
       [field]: e.target.value,
     }));
   };
-  const handleConfirmWeightInput = (inputId, inputValue) => {
+  const handleConfirmWeightInput = async (inputId, inputValue) => {
+    setIsSubmitting(true); // Indicate loading
     setWorkoutData((prevData) => ({
       ...prevData,
       [inputId]: inputValue,
     }));
-    // Close modal and reset active input ID
-    toggleModal("mobileInputModal");
-    setActiveInputId("");
+    const updatedData = {
+      ...workoutData,
+      [inputId]: inputValue,
+    };
+
+    // Document reference
+    const weekRef = doc(
+      db,
+      "users",
+      currentUser.uid,
+      "trainingType",
+      trainingType,
+      "workouts",
+      workoutType,
+      "week",
+      currentWeek
+    );
+
+    try {
+      // Save updated data to database
+      await setDoc(weekRef, updatedData, { merge: true });
+      console.log("Data successfully updated");
+    } catch (error) {
+      console.error("Error updating data:", error);
+    } finally {
+      setIsSubmitting(false); // Reset loading indicator
+      toggleModal("mobileInputModal"); // Close modal
+      setActiveInputId(""); // Reset active input ID
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -219,29 +252,40 @@ const Dashboard = () => {
       {/* <div className="text-2xl font-bold pt-14">
         Hello {firstName}, you are now logged in. Welcome to the Dashboard
       </div> */}
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center justify-center h-full">
-        <Card className="w-full shadow-xl">
+      <form onSubmit={handleSubmit} className="py-4">
+        <Card shadow="md" className="h-full hidden sm:block">
           <CardHeader className="flex gap-3 w-full items-center justify-between">
             <div className="flex flex-col">
-              <h3 className="font-roboto text-3xl">
+              <h2 className="font-roboto text-3xl">
                 {
                   trainingTypeOptions.find(
                     (option) => option.value === trainingType
                   )?.label
                 }
-              </h3>
-              <h4 cclassName="font-roboto text-xl">
-                {workouts.find((option) => option.value === workoutType)?.label}
-              </h4>
+              </h2>
+              <div className="flex items-center justify-start gap-3">
+                <h3 className="font-roboto text-xl">
+                  {
+                    workouts.find((option) => option.value === workoutType)
+                      ?.label
+                  }
+                </h3>
+
+                <h4 className="font-roboto text-xl">
+                  -&nbsp;
+                  {
+                    weekOptions.find((option) => option.value === currentWeek)
+                      ?.label
+                  }
+                </h4>
+              </div>
             </div>
             {trainingType === "bodybuilding" && workoutType === "pplOne" && (
               <Select
                 label="Select Week"
                 className="max-w-sm"
                 value={currentWeek}
-                onChange={(e) => setCurrentWeek(e.target.value)}>
+                onChange={handleWeekChange}>
                 {getWeekOptionsToDisplay().map((option) => (
                   <SelectItem key={option.value} value={option.value}>
                     {option.label}
@@ -256,9 +300,10 @@ const Dashboard = () => {
             {trainingType === "bodybuilding" && workoutType === "pplOne" && (
               <div>
                 <Table
+                  removeWrapper
                   isHeaderSticky
                   isStriped
-                  className="max-h-[23rem] overflow-y-scroll"
+                  className="workout-table overflow-y-scroll"
                   aria-label="Example static collection table">
                   <TableHeader>
                     <TableColumn></TableColumn>
@@ -281,18 +326,13 @@ const Dashboard = () => {
                         <TableCell>
                           <Input
                             type="text"
+                            color="primary"
                             placeholder="add weight"
                             variant="underlined"
                             size="sm"
                             id={`${exercise.id}Input`}
                             value={workoutData[exercise.id]}
                             onChange={(e) => handleInputChange(e, exercise.id)}
-                            onClick={() => {
-                              if (window.innerWidth < 768) {
-                                setActiveInputId(exercise.id); // Set the active input ID
-                                toggleModal("mobileInputModal"); // Open the modal
-                              }
-                            }}
                           />
                         </TableCell>
                         <TableCell>{exercise.RPE}</TableCell>
@@ -304,56 +344,105 @@ const Dashboard = () => {
               </div>
             )}
             {trainingType === "powerbuilding" && workoutType === "pplOne" && (
-              <div>
-                <Table
-                  isHeaderSticky
-                  isStriped
-                  className="max-h-[23rem] overflow-y-scroll"
-                  aria-label="Example static collection table">
-                  <TableHeader>
-                    <TableColumn></TableColumn>
-                    <TableColumn>Exercise</TableColumn>
-                    <TableColumn>Warm up Sets</TableColumn>
-                    <TableColumn>Working Sets</TableColumn>
-                    <TableColumn>Reps</TableColumn>
-                    <TableColumn>Weight</TableColumn>
-                    <TableColumn>RPE</TableColumn>
-                    <TableColumn>Rest Time</TableColumn>
-                  </TableHeader>
-                  <TableBody>
-                    {exercisesBBPPLOne.map((exercise) => (
-                      <TableRow key={exercise.id}>
-                        <TableCell>{exercise.type}</TableCell>
-                        <TableCell>{exercise.name}</TableCell>
-                        <TableCell>{exercise.warmUpSets}</TableCell>
-                        <TableCell>{exercise.workingSets}</TableCell>
-                        <TableCell>{exercise.reps}</TableCell>
-                        <TableCell>
-                          <Input
-                            type="text"
-                            placeholder="add weight"
-                            variant="underlined"
-                            size="sm"
-                            id={`${exercise.id}Input`}
-                            value={workoutData[exercise.id]}
-                            onChange={(e) => handleInputChange(e, exercise.id)}
-                          />
-                        </TableCell>
-                        <TableCell>{exercise.RPE}</TableCell>
-                        <TableCell>{exercise.rest}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+              <div>{/* table to go here */}</div>
             )}
           </CardBody>
-          <CardFooter>
-            <Button isLoading={isSubmitting} type="submit">
-              Submit
+          <CardFooter className="flex justify-end px-3 pt-0 pb-3">
+            <Button
+              data-hover="false"
+              className="px-4 py-2 text-md text-white font-roboto rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
+              isLoading={isSubmitting}
+              type="submit">
+              Save
             </Button>
           </CardFooter>
         </Card>
+
+        {/* Mobile View */}
+        <Select
+          label="Select Week"
+          className="block max-w-sm mb-2 sm:hidden"
+          value={currentWeek}
+          onChange={handleWeekChange}>
+          {getWeekOptionsToDisplay().map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </Select>
+        {trainingType === "bodybuilding" && workoutType === "pplOne" && (
+          <div>
+            {exercisesBBPPLOne.map((exercise, index) => (
+              <div
+                className=""
+                onClick={() => {
+                  if (window.innerWidth < 768) {
+                    setActiveInputId(exercise.id); // Set the active input ID
+                    setActiveExerciseName(exercise.name);
+                    toggleModal("mobileInputModal"); // Open the modal
+                  }
+                }}>
+                <Card
+                  key={exercise.id}
+                  shadow="md"
+                  className={`flex flex-col gap-y-2 p-3 w-full sm:hidden ${
+                    index > 0 ? "mt-2" : ""
+                  }`}>
+                  <div className="flex items-baseline justify-start gap-x-1">
+                    <h2 className="text-xl font-roboto max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
+                      {exercise.name}
+                    </h2>
+                    <p className="text-sm italic">({exercise.typeMobile})</p>
+                  </div>
+                  <div className="flex items-center justify-start gap-x-3">
+                    <div className="flex items-center justify-center flex-col">
+                      <p
+                        className="text-xs text-stone-500"
+                        aria-label="Warmup Sets">
+                        WS
+                      </p>
+                      <p>{exercise.warmUpSets}</p>
+                    </div>
+                    <div className="flex items-center justify-center flex-col">
+                      <p
+                        className="text-xs text-stone-500"
+                        aria-label="Working Sets">
+                        Sets
+                      </p>
+                      <p>{exercise.workingSets}</p>
+                    </div>
+                    <div className="flex items-center justify-center flex-col">
+                      <p className="text-xs text-stone-500" aria-label="RPE">
+                        RPE
+                      </p>
+                      <p>{exercise.RPE}</p>
+                    </div>
+                    <div className="flex items-center justify-center flex-col">
+                      <p className="text-xs text-stone-500" aria-label="Reps">
+                        Reps
+                      </p>
+                      <p>{exercise.reps}</p>
+                    </div>
+                    <div className="flex items-center justify-center flex-col">
+                      <p className="text-xs text-stone-500" aria-label="Rest">
+                        Rest(min)
+                      </p>
+                      <p>{exercise.rest}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-start">
+                    <div className="flex items-start justify-start flex-col">
+                      <p className="text-xs text-stone-500" aria-label="Weight">
+                        Weight
+                      </p>
+                      <h3 className="text-xl ">{workoutData[exercise.id]}</h3>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        )}
       </form>
 
       <WorkoutFilterModal
@@ -369,7 +458,9 @@ const Dashboard = () => {
         isModalOpen={modals.mobileInputModal}
         toggleModal={() => toggleModal("mobileInputModal")}
         activeInputId={activeInputId}
+        activeExercise={activeExerciseName}
         onConfirm={handleConfirmWeightInput}
+        isSubmitting={isSubmitting}
       />
     </div>
   );
