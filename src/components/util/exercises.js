@@ -26,6 +26,7 @@ export const exercises = {
   chinUps: "Chin Ups",
   latPulldown: "Lat Pulldown",
   seatedCableRow: "Seated Cable Row",
+  singleArmSeatedCableRow: "Single Arm Seated Cable Row",
   chestSupportedMachineRow: "Chest Supported Machine Row",
   tBarRow: "T-Bar Row",
   deadlift: "Deadlift",
@@ -33,6 +34,8 @@ export const exercises = {
   hyperextensions: "Hyperextensions",
   singleArmDumbbellRow: "Single-Arm Dumbbell Row",
   reverseGripBentOverRows: "Reverse Grip Bent-Over Rows",
+  meadowsRow: "Meadows Row",
+  baerbellRow: "Barbell Row",
 
   // Legs
   barbellLowbarSquat: "Barbell Squat (Low Bar)",
@@ -63,6 +66,7 @@ export const exercises = {
   lateralRaises: "Lateral Raises",
   frontDumbbellRaises: "Front Dumbbell Raises",
   rearDeltFly: "Rear Delt Fly",
+  reversePecDec: "Reverse Pec Dec Fly",
   shrugsBarbell: "Shrugs (Barbell)",
   shrugsDumbbell: "Shrugs (Dumbbell)",
   facePulls: "Face Pulls",
@@ -87,6 +91,8 @@ export const exercises = {
   // Biceps
   bicepCurlBarbell: "Bicep Curl (Barbell)",
   bicepCurlDumbbell: "Bicep Curl (Dumbbell)",
+  twentyOnesBarbell: "21's Barbell Curl",
+  twentyOnesDumbbell: "21's Dumbbell Curl",
   bayesianCableCurl: "Bayesian Cable Curl",
   hammerCurlDumbbell: "Hammer Curl (Dumbbell)",
   preacherCurlBarbell: "Preacher Curl (Barbell)",

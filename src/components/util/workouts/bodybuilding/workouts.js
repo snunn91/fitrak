@@ -223,6 +223,61 @@ const getExercisesBBPPLOne = () => {
     },
     {
       id: "exerciseTwentyOne",
+      type: "Pull", // Leave type empty for subsequent rows that share the same type
+      typeMobile: "Pull",
+      name: exercises.singleArmSeatedCableRow,
+      warmUpSets: 2,
+      workingSets: 3,
+      reps: "10-12",
+      RPE: 9,
+      rest: "1-2",
+    },
+    {
+      id: "exerciseTwentyTwo",
+      type: "", // Leave type empty for subsequent rows that share the same type
+      typeMobile: "Pull",
+      name: exercises.meadowsRow,
+      warmUpSets: 1,
+      workingSets: 3,
+      reps: "10-12",
+      RPE: 9,
+      rest: "1-2",
+    },
+    {
+      id: "exerciseTwentyThree",
+      type: "", // Leave type empty for subsequent rows that share the same type
+      typeMobile: "Pull",
+      name: exercises.reversePecDec,
+      warmUpSets: 1,
+      workingSets: 3,
+      reps: "12-15",
+      RPE: 10,
+      rest: "1-2",
+    },
+    {
+      id: "exerciseTwentyFour",
+      type: "", // Leave type empty for subsequent rows that share the same type
+      typeMobile: "Pull",
+      name: exercises.twentyOnesBarbell,
+      warmUpSets: 1,
+      workingSets: 3,
+      reps: "21",
+      RPE: 9,
+      rest: "1-2",
+    },
+    {
+      id: "exerciseTwentyFive",
+      type: "", // Leave type empty for subsequent rows that share the same type
+      typeMobile: "Pull",
+      name: exercises.bayesianCableCurl,
+      warmUpSets: 0,
+      workingSets: 3,
+      reps: "12-15",
+      RPE: 10,
+      rest: "1-2",
+    },
+    {
+      id: "exerciseTwentySix",
       type: "Legs", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
       name: exercises.legPress,
@@ -233,7 +288,7 @@ const getExercisesBBPPLOne = () => {
       rest: "2-3",
     },
     {
-      id: "exerciseTwentyTwo",
+      id: "exerciseTwentyseven",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
       name: exercises.romanianDeadlift,
@@ -244,7 +299,7 @@ const getExercisesBBPPLOne = () => {
       rest: "2-3",
     },
     {
-      id: "exerciseTwentyThree",
+      id: "exerciseTwentyEight",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
       name: exercises.bulgarianSplitSquat,
@@ -255,7 +310,7 @@ const getExercisesBBPPLOne = () => {
       rest: "2-3",
     },
     {
-      id: "exerciseTwentyFour",
+      id: "exerciseTwentyNine",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
       name: exercises.calfRaisesSeated,
@@ -266,7 +321,7 @@ const getExercisesBBPPLOne = () => {
       rest: "1-2",
     },
     {
-      id: "exerciseTwentyFive",
+      id: "exerciseThirty",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
       name: exercises.legRaises,

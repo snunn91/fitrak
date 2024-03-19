@@ -353,7 +353,7 @@ const Dashboard = () => {
               className="px-4 py-2 text-md text-white font-roboto rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
               isLoading={isSubmitting}
               type="submit">
-              Save
+              {isSubmitting ? "Saving..." : "Save"}
             </Button>
           </CardFooter>
         </Card>
