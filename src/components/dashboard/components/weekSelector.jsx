@@ -3,11 +3,12 @@ const WeekSelector = ({
   currentWeek,
   handleWeekChange,
   getWeekOptionsToDisplay,
+  className,
 }) => {
   return (
     <Select
       label="Select Week"
-      className="max-w-sm"
+      className={`w-full ${className}`}
       value={currentWeek}
       onChange={handleWeekChange}>
       {getWeekOptionsToDisplay().map((option) => (

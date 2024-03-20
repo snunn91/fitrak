@@ -345,7 +345,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-12",
       RPE: 8,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseTwo",
@@ -356,7 +356,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "8-10",
       RPE: 9,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseThree",
@@ -367,7 +367,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "12-15",
       RPE: 8,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseFour",
@@ -378,7 +378,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-12",
       RPE: 8,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseFive",
@@ -389,7 +389,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "15-20",
       RPE: 7,
-      rest: "1 min",
+      rest: "1-2",
     },
     // Pull Day Exercises
     {
@@ -401,7 +401,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-12",
       RPE: 9,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseSeven",
@@ -412,7 +412,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "6-8",
       RPE: 9,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseEight",
@@ -423,7 +423,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "8-10",
       RPE: 8,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseNine",
@@ -434,7 +434,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "12-15",
       RPE: 7,
-      rest: "1 min",
+      rest: "1-2",
     },
     {
       id: "exerciseTen",
@@ -445,7 +445,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "8-10",
       RPE: 8,
-      rest: "2 min",
+      rest: "1-2",
     },
     // Legs Day Exercises
     {
@@ -457,7 +457,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "5-7",
       RPE: 9,
-      rest: "2-3 min",
+      rest: "2-3",
     },
     {
       id: "exerciseTwelve",
@@ -468,7 +468,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "8-10",
       RPE: 9,
-      rest: "2 min",
+      rest: "2-3",
     },
     {
       id: "exerciseThirteen",
@@ -479,7 +479,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-12",
       RPE: 8,
-      rest: "2 min",
+      rest: "2-3",
     },
     {
       id: "exerciseFourteen",
@@ -490,7 +490,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 4,
       reps: "12-15",
       RPE: 8,
-      rest: "1 min",
+      rest: "1-2",
     },
     {
       id: "exerciseFifteen",
@@ -501,7 +501,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-12",
       RPE: 9,
-      rest: "2 min",
+      rest: "1-2",
     },
     // Push Day 2
     {
@@ -524,7 +524,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-15",
       RPE: 8,
-      rest: "2-3",
+      rest: "1-2",
     },
     {
       id: "exerciseEighteen",
@@ -535,7 +535,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "8-10",
       RPE: 9,
-      rest: "2-3",
+      rest: "1-2",
     },
     {
       id: "exerciseNineteen",
@@ -557,7 +557,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "8-10",
       RPE: 9,
-      rest: "2-3",
+      rest: "1-2",
     },
     // Pull Day 2
     {
@@ -569,7 +569,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "5-7",
       RPE: 9,
-      rest: "2-3 min",
+      rest: "2-3",
     },
     {
       id: "exerciseTwentyTwo",
@@ -580,40 +580,40 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "6-8",
       RPE: 9,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseTwentyThree",
       type: "",
       typeMobile: "Pull",
-      name: exercises.barbellRows,
+      name: exercises.barbellBentOverRows,
       warmUpSets: 2,
       workingSets: 3,
       reps: "8-10",
       RPE: 8,
-      rest: "2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseTwentyFour",
       type: "",
       typeMobile: "Pull",
-      name: exercises.reverseFlyes,
+      name: exercises.rearDeltFly,
       warmUpSets: 1,
       workingSets: 3,
       reps: "10-12",
       RPE: 7,
-      rest: "1 min",
+      rest: "1-2",
     },
     {
       id: "exerciseTwentyFive",
       type: "",
       typeMobile: "Pull",
-      name: exercises.preacherCurl,
+      name: exercises.preacherCurlBarbell,
       warmUpSets: 2,
       workingSets: 3,
-      reps: "8-10",
+      reps: "10-12",
       RPE: 9,
-      rest: "2 min",
+      rest: "1-2",
     },
     // Legs Day 2
     {
@@ -625,7 +625,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "6-8",
       RPE: 9,
-      rest: "2-3 min",
+      rest: "2-3",
     },
     {
       id: "exerciseTwentySeven",
@@ -636,7 +636,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-12 per leg",
       RPE: 8,
-      rest: "1-2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseTwentyEight",
@@ -647,7 +647,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "10-12 per leg",
       RPE: 8,
-      rest: "1-2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseTwentyNine",
@@ -658,7 +658,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 4,
       reps: "12-15",
       RPE: 8,
-      rest: "1-2 min",
+      rest: "1-2",
     },
     {
       id: "exerciseThirty",
@@ -669,7 +669,7 @@ const getExercisesBBPPLTwo = () => {
       workingSets: 3,
       reps: "8-10",
       RPE: 9,
-      rest: "1-2 min",
+      rest: "1",
     },
   ];
 };

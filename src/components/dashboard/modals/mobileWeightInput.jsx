@@ -46,9 +46,9 @@ const MobileWeightInputModal = ({
                 bordered
                 fullWidth
                 type="text"
+                placeholder="Enter a weight here"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Weight"
               />
             </ModalBody>
             <ModalFooter>
