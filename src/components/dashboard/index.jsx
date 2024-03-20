@@ -7,14 +7,15 @@ import {
   workoutMapping,
   weekOptions,
 } from "../util/arrays";
-import { getExercisesBBPPLOne } from "../util/workouts/bodybuilding/workouts";
+import {
+  getExercisesBBPPLOne,
+  getExercisesBBPPLTwo,
+} from "../util/workouts/bodybuilding/workouts";
 // import { getExercisesPBPPLOne } from "../util/workouts/powerbuilding/workouts";
 import { useAuth } from "../../contexts/authContext";
 import { useModal } from "../../contexts/modalContext/modalContext";
 //NextUI
 import {
-  Select,
-  SelectItem,
   Input,
   Button,
   Card,
@@ -31,6 +32,7 @@ import {
 } from "@nextui-org/react";
 import WorkoutFilterModal from "./modals/workoutFilterModal";
 import MobileWeightInputModal from "./modals/mobileWeightInput";
+import WeekSelector from "./components/weekSelector";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
@@ -49,6 +51,7 @@ const Dashboard = () => {
 
   //Workout Plans
   const exercisesBBPPLOne = getExercisesBBPPLOne(currentWeek);
+  const exercisesBBPPLTwo = getExercisesBBPPLTwo(currentWeek);
   // const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
   const [activeInputId, setActiveInputId] = useState("");
@@ -280,67 +283,113 @@ const Dashboard = () => {
                 </h4>
               </div>
             </div>
-            {trainingType === "bodybuilding" && workoutType === "pplOne" && (
-              <Select
-                label="Select Week"
-                className="max-w-sm"
-                value={currentWeek}
-                onChange={handleWeekChange}>
-                {getWeekOptionsToDisplay().map((option) => (
-                  <SelectItem key={option.value} value={option.value}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </Select>
-            )}
+
+            <WeekSelector
+              currentWeek={currentWeek}
+              getWeekOptionsToDisplay={getWeekOptionsToDisplay}
+              handleWeekChange={handleWeekChange}></WeekSelector>
           </CardHeader>
           <Divider />
 
           <CardBody>
-            {trainingType === "bodybuilding" && workoutType === "pplOne" && (
+            {trainingType === "bodybuilding" && (
               <div>
-                <Table
-                  removeWrapper
-                  isHeaderSticky
-                  isStriped
-                  className="workout-table overflow-y-scroll"
-                  aria-label="Example static collection table">
-                  <TableHeader>
-                    <TableColumn></TableColumn>
-                    <TableColumn>Exercise</TableColumn>
-                    <TableColumn>Warm up Sets</TableColumn>
-                    <TableColumn>Working Sets</TableColumn>
-                    <TableColumn>Reps</TableColumn>
-                    <TableColumn>Weight</TableColumn>
-                    <TableColumn>RPE</TableColumn>
-                    <TableColumn>Rest Time</TableColumn>
-                  </TableHeader>
-                  <TableBody>
-                    {exercisesBBPPLOne.map((exercise) => (
-                      <TableRow key={exercise.id}>
-                        <TableCell>{exercise.type}</TableCell>
-                        <TableCell>{exercise.name}</TableCell>
-                        <TableCell>{exercise.warmUpSets}</TableCell>
-                        <TableCell>{exercise.workingSets}</TableCell>
-                        <TableCell>{exercise.reps}</TableCell>
-                        <TableCell>
-                          <Input
-                            type="text"
-                            color="primary"
-                            placeholder="add weight"
-                            variant="underlined"
-                            size="sm"
-                            id={`${exercise.id}Input`}
-                            value={workoutData[exercise.id]}
-                            onChange={(e) => handleInputChange(e, exercise.id)}
-                          />
-                        </TableCell>
-                        <TableCell>{exercise.RPE}</TableCell>
-                        <TableCell>{exercise.rest}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                {workoutType === "pplOne" && (
+                  <div>
+                    <Table
+                      removeWrapper
+                      isHeaderSticky
+                      isStriped
+                      className="workout-table overflow-y-scroll"
+                      aria-label="Bodybuilding Push Pull Legs Table">
+                      <TableHeader>
+                        <TableColumn></TableColumn>
+                        <TableColumn>Exercise</TableColumn>
+                        <TableColumn>Warm up Sets</TableColumn>
+                        <TableColumn>Working Sets</TableColumn>
+                        <TableColumn>Reps</TableColumn>
+                        <TableColumn>Weight</TableColumn>
+                        <TableColumn>RPE</TableColumn>
+                        <TableColumn>Rest Time</TableColumn>
+                      </TableHeader>
+                      <TableBody>
+                        {exercisesBBPPLOne.map((exercise) => (
+                          <TableRow key={exercise.id}>
+                            <TableCell>{exercise.type}</TableCell>
+                            <TableCell>{exercise.name}</TableCell>
+                            <TableCell>{exercise.warmUpSets}</TableCell>
+                            <TableCell>{exercise.workingSets}</TableCell>
+                            <TableCell>{exercise.reps}</TableCell>
+                            <TableCell>
+                              <Input
+                                type="text"
+                                color="primary"
+                                placeholder="add weight"
+                                variant="underlined"
+                                size="sm"
+                                id={`${exercise.id}Input`}
+                                value={workoutData[exercise.id]}
+                                onChange={(e) =>
+                                  handleInputChange(e, exercise.id)
+                                }
+                              />
+                            </TableCell>
+                            <TableCell>{exercise.RPE}</TableCell>
+                            <TableCell>{exercise.rest}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+                {workoutType === "pplTwo" && (
+                  <div>
+                    <Table
+                      removeWrapper
+                      isHeaderSticky
+                      isStriped
+                      className="workout-table overflow-y-scroll"
+                      aria-label="Bodybuilding Push Pull Legs Table">
+                      <TableHeader>
+                        <TableColumn></TableColumn>
+                        <TableColumn>Exercise</TableColumn>
+                        <TableColumn>Warm up Sets</TableColumn>
+                        <TableColumn>Working Sets</TableColumn>
+                        <TableColumn>Reps</TableColumn>
+                        <TableColumn>Weight</TableColumn>
+                        <TableColumn>RPE</TableColumn>
+                        <TableColumn>Rest Time</TableColumn>
+                      </TableHeader>
+                      <TableBody>
+                        {exercisesBBPPLTwo.map((exercise) => (
+                          <TableRow key={exercise.id}>
+                            <TableCell>{exercise.type}</TableCell>
+                            <TableCell>{exercise.name}</TableCell>
+                            <TableCell>{exercise.warmUpSets}</TableCell>
+                            <TableCell>{exercise.workingSets}</TableCell>
+                            <TableCell>{exercise.reps}</TableCell>
+                            <TableCell>
+                              <Input
+                                type="text"
+                                color="primary"
+                                placeholder="add weight"
+                                variant="underlined"
+                                size="sm"
+                                id={`${exercise.id}Input`}
+                                value={workoutData[exercise.id]}
+                                onChange={(e) =>
+                                  handleInputChange(e, exercise.id)
+                                }
+                              />
+                            </TableCell>
+                            <TableCell>{exercise.RPE}</TableCell>
+                            <TableCell>{exercise.rest}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
               </div>
             )}
             {trainingType === "powerbuilding" && workoutType === "pplOne" && (
@@ -359,88 +408,182 @@ const Dashboard = () => {
         </Card>
 
         {/* Mobile View */}
-        <Select
-          label="Select Week"
-          className="block max-w-sm mb-2 sm:hidden"
-          value={currentWeek}
-          onChange={handleWeekChange}>
-          {getWeekOptionsToDisplay().map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </Select>
-        {trainingType === "bodybuilding" && workoutType === "pplOne" && (
+        <WeekSelector
+          currentWeek={currentWeek}
+          getWeekOptionsToDisplay={getWeekOptionsToDisplay}
+          handleWeekChange={handleWeekChange}></WeekSelector>
+        {trainingType === "bodybuilding" && (
           <div>
-            {exercisesBBPPLOne.map((exercise, index) => (
-              <div
-                className=""
-                onClick={() => {
-                  if (window.innerWidth < 768) {
-                    setActiveInputId(exercise.id); // Set the active input ID
-                    setActiveExerciseName(exercise.name);
-                    toggleModal("mobileInputModal"); // Open the modal
-                  }
-                }}>
-                <Card
-                  key={exercise.id}
-                  shadow="md"
-                  className={`flex flex-col gap-y-2 p-3 w-full sm:hidden ${
-                    index > 0 ? "mt-2" : ""
-                  }`}>
-                  <div className="flex items-baseline justify-start gap-x-1">
-                    <h2 className="text-xl font-raleway max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
-                      {exercise.name}
-                    </h2>
-                    <p className="text-sm italic">({exercise.typeMobile})</p>
+            {workoutType === "pplOne" && (
+              <div>
+                {exercisesBBPPLOne.map((exercise, index) => (
+                  <div
+                    className=""
+                    onClick={() => {
+                      if (window.innerWidth < 768) {
+                        setActiveInputId(exercise.id); // Set the active input ID
+                        setActiveExerciseName(exercise.name);
+                        toggleModal("mobileInputModal"); // Open the modal
+                      }
+                    }}>
+                    <Card
+                      key={exercise.id}
+                      shadow="md"
+                      className={`flex flex-col gap-y-2 p-3 w-full sm:hidden ${
+                        index > 0 ? "mt-2" : ""
+                      }`}>
+                      <div className="flex items-baseline justify-start gap-x-1">
+                        <h2 className="text-xl font-raleway max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
+                          {exercise.name}
+                        </h2>
+                        <p className="text-sm italic">
+                          ({exercise.typeMobile})
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-start gap-x-3">
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Warmup Sets">
+                            WS
+                          </p>
+                          <p>{exercise.warmUpSets}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Working Sets">
+                            Sets
+                          </p>
+                          <p>{exercise.workingSets}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="RPE">
+                            RPE
+                          </p>
+                          <p>{exercise.RPE}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Reps">
+                            Reps
+                          </p>
+                          <p>{exercise.reps}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Rest">
+                            Rest(min)
+                          </p>
+                          <p>{exercise.rest}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-start">
+                        <div className="flex items-start justify-start flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Weight">
+                            Weight
+                          </p>
+                          <h3 className="text-xl ">
+                            {workoutData[exercise.id]}
+                          </h3>
+                        </div>
+                      </div>
+                    </Card>
                   </div>
-                  <div className="flex items-center justify-start gap-x-3">
-                    <div className="flex items-center justify-center flex-col">
-                      <p
-                        className="text-xs text-stone-500"
-                        aria-label="Warmup Sets">
-                        WS
-                      </p>
-                      <p>{exercise.warmUpSets}</p>
-                    </div>
-                    <div className="flex items-center justify-center flex-col">
-                      <p
-                        className="text-xs text-stone-500"
-                        aria-label="Working Sets">
-                        Sets
-                      </p>
-                      <p>{exercise.workingSets}</p>
-                    </div>
-                    <div className="flex items-center justify-center flex-col">
-                      <p className="text-xs text-stone-500" aria-label="RPE">
-                        RPE
-                      </p>
-                      <p>{exercise.RPE}</p>
-                    </div>
-                    <div className="flex items-center justify-center flex-col">
-                      <p className="text-xs text-stone-500" aria-label="Reps">
-                        Reps
-                      </p>
-                      <p>{exercise.reps}</p>
-                    </div>
-                    <div className="flex items-center justify-center flex-col">
-                      <p className="text-xs text-stone-500" aria-label="Rest">
-                        Rest(min)
-                      </p>
-                      <p>{exercise.rest}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-start">
-                    <div className="flex items-start justify-start flex-col">
-                      <p className="text-xs text-stone-500" aria-label="Weight">
-                        Weight
-                      </p>
-                      <h3 className="text-xl ">{workoutData[exercise.id]}</h3>
-                    </div>
-                  </div>
-                </Card>
+                ))}
               </div>
-            ))}
+            )}
+            {workoutType === "pplTwo" && (
+              <div>
+                {exercisesBBPPLTwo.map((exercise, index) => (
+                  <div
+                    className=""
+                    onClick={() => {
+                      if (window.innerWidth < 768) {
+                        setActiveInputId(exercise.id); // Set the active input ID
+                        setActiveExerciseName(exercise.name);
+                        toggleModal("mobileInputModal"); // Open the modal
+                      }
+                    }}>
+                    <Card
+                      key={exercise.id}
+                      shadow="md"
+                      className={`flex flex-col gap-y-2 p-3 w-full sm:hidden ${
+                        index > 0 ? "mt-2" : ""
+                      }`}>
+                      <div className="flex items-baseline justify-start gap-x-1">
+                        <h2 className="text-xl font-raleway max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
+                          {exercise.name}
+                        </h2>
+                        <p className="text-sm italic">
+                          ({exercise.typeMobile})
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-start gap-x-3">
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Warmup Sets">
+                            WS
+                          </p>
+                          <p>{exercise.warmUpSets}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Working Sets">
+                            Sets
+                          </p>
+                          <p>{exercise.workingSets}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="RPE">
+                            RPE
+                          </p>
+                          <p>{exercise.RPE}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Reps">
+                            Reps
+                          </p>
+                          <p>{exercise.reps}</p>
+                        </div>
+                        <div className="flex items-center justify-center flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Rest">
+                            Rest(min)
+                          </p>
+                          <p>{exercise.rest}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-start">
+                        <div className="flex items-start justify-start flex-col">
+                          <p
+                            className="text-xs text-stone-500"
+                            aria-label="Weight">
+                            Weight
+                          </p>
+                          <h3 className="text-xl ">
+                            {workoutData[exercise.id]}
+                          </h3>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </form>

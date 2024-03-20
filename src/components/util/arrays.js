@@ -18,8 +18,8 @@ const workoutMapping = {
   powerbuilding: ["pplOne", "pplTwo", "upperLowerOne", "upperLowerTwo"],
 };
 const workouts = [
-  { label: "Push Pull Legs", value: "pplOne" },
-  { label: "Push Pull Legs", value: "pplTwo" },
+  { label: "Push Pull Legs (Option 1)", value: "pplOne" },
+  { label: "Push Pull Legs (Option 2)", value: "pplTwo" },
   { label: "Full Body", value: "fullBodyOne" },
   { label: "Full Body", value: "fullBodyTwo" },
   { label: "Upper Lower", value: "upperLowerOne" },
