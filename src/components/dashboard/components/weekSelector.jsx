@@ -8,7 +8,7 @@ const WeekSelector = ({
   return (
     <Select
       label="Select Week"
-      className={`w-full ${className}`}
+      className={className}
       value={currentWeek}
       onChange={handleWeekChange}>
       {getWeekOptionsToDisplay().map((option) => (

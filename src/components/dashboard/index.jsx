@@ -29,6 +29,7 @@ import MobileWeightInputModal from "./modals/mobileWeightInput";
 import WeekSelector from "./components/weekSelector";
 import ExerciseTable from "./components/desktop/exerciseTable";
 import ExerciseCard from "./components/mobile/exerciseCard";
+import { startLogoutTimer } from "././../util/logoutTimer";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
@@ -78,6 +79,11 @@ const Dashboard = () => {
     localStorage.setItem("currentWeek", newWeek); // Update local storage
     console.log("Week updated to:", newWeek);
   };
+
+  useEffect(() => {
+    // start the logout timer when the app mounts
+    startLogoutTimer();
+  }, []);
 
   useEffect(() => {
     // Fetch personal details and current week's workout data
@@ -281,7 +287,7 @@ const Dashboard = () => {
             </div>
 
             <WeekSelector
-              className="hidden md:block"
+              className="hidden max-w-sm md:block"
               currentWeek={currentWeek}
               getWeekOptionsToDisplay={getWeekOptionsToDisplay}
               handleWeekChange={handleWeekChange}></WeekSelector>
