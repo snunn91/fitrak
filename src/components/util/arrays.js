@@ -6,16 +6,9 @@ const trainingTypeOptions = [
   { label: "Powerbuilding", value: "powerbuilding" },
 ];
 const workoutMapping = {
-  bodybuilding: [
-    "pplOne",
-    "pplTwo",
-    "fullBodyOne",
-    "fullBodyTwo",
-    "upperLowerOne",
-    "upperLowerTwo",
-  ],
+  bodybuilding: ["pplOne", "pplTwo", "upperLowerOne", "homeWithWeights"],
   strength: ["fullBodyOne", "fullBodyTwo"],
-  powerbuilding: ["pplOne", "pplTwo", "upperLowerOne", "upperLowerTwo"],
+  powerbuilding: ["pplOne", "upperLowerTwo"],
 };
 const workouts = [
   { label: "Push Pull Legs (Option 1)", value: "pplOne" },
@@ -24,6 +17,8 @@ const workouts = [
   { label: "Full Body", value: "fullBodyTwo" },
   { label: "Upper Lower", value: "upperLowerOne" },
   { label: "Upper Lower", value: "upperLowerTwo" },
+  { label: "Home (Dumbbells required)", value: "homeWithWeights" },
+  { label: "Home (No Equipment required)", value: "homeWithoutWeights" },
 ];
 const weekOptions = [
   { label: "Week 1", value: "weekOne" },

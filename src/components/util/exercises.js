@@ -87,6 +87,7 @@ export const exercises = {
   closeGripBenchPress: "Close-Grip Bench Press",
   cableTricepKickback: "Cable Tricep Kickback",
   overheadTricepExtension: "Overhead Tricep Extension",
+  closeGripPushup: "Close Stance Pushup",
 
   // Biceps
   bicepCurlBarbell: "Bicep Curl (Barbell)",

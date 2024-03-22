@@ -1,7 +1,10 @@
 import { Card, Input } from "@nextui-org/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
 const ExerciseCard = ({
   exercisePlan,
   workoutData,
+  setCurrentExercise,
   setActiveInputId,
   setActiveExerciseName,
   toggleModal,
@@ -15,11 +18,22 @@ const ExerciseCard = ({
           className={`flex flex-col gap-y-2 p-3 w-full md:hidden ${
             index > 0 ? "mt-2" : ""
           }`}>
-          <div className="flex items-baseline justify-start gap-x-1">
-            <h2 className="text-xl font-raleway max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
-              {exercise.name}
-            </h2>
-            <p className="text-sm italic">({exercise.typeMobile})</p>
+          <div className="flex items-center justify-between gap-x-1">
+            <div className="flex items-baseline justify-start gap-x-1">
+              <h2 className="text-xl font-raleway max-w-[565px] whitespace-nowrap overflow-hidden text-ellipsis">
+                {exercise.name}
+              </h2>
+              <p className="text-sm italic">({exercise.typeMobile})</p>
+            </div>
+
+            <button
+              className="appearance-none text-rose-900 text-xl transition duration-300 hover:text-rose-950"
+              onClick={() => {
+                setCurrentExercise(exercise); // Set the current exercise's data
+                toggleModal("notesModal");
+              }}>
+              <FontAwesomeIcon icon={faMessage}></FontAwesomeIcon>
+            </button>
           </div>
           <div className="flex items-center justify-start gap-x-3">
             <div className="flex items-center justify-center flex-col">

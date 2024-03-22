@@ -36,11 +36,11 @@ const MobileWeightInputModal = ({
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader>
+            <ModalHeader className="pt-4 pb-2">
               {" "}
-              <p>{activeExercise}</p>
+              <h2 className="text-xl font-raleway pt-4">{activeExercise}</h2>
             </ModalHeader>
-            <ModalBody>
+            <ModalBody className="pt-2 pb-4">
               <Input
                 clearable
                 bordered
@@ -53,7 +53,7 @@ const MobileWeightInputModal = ({
             </ModalBody>
             <ModalFooter>
               <Button auto flat color="error" onPress={onClose}>
-                Cancel
+                Dismiss
               </Button>
               <Button
                 isLoading={isSubmitting}

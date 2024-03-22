@@ -7,7 +7,17 @@ import {
   TableRow,
   TableCell,
 } from "@nextui-org/react";
-const ExerciseTable = ({ exercisePlan, workoutData, handleInputChange }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { useModal } from "../../../../contexts/modalContext/modalContext";
+
+const ExerciseTable = ({
+  exercisePlan,
+  workoutData,
+  handleInputChange,
+  setCurrentExercise,
+}) => {
+  const { toggleModal } = useModal();
   return (
     <Table
       removeWrapper
@@ -50,7 +60,16 @@ const ExerciseTable = ({ exercisePlan, workoutData, handleInputChange }) => {
             </TableCell>
             <TableCell>{exercise.RPE}</TableCell>
             <TableCell>{exercise.rest}</TableCell>
-            <TableCell>Here is a note section</TableCell>
+            <TableCell>
+              <button
+                className="appearance-none text-rose-900 text-2xl transition duration-300 hover:text-rose-950"
+                onClick={() => {
+                  setCurrentExercise(exercise); // Set the current exercise's data
+                  toggleModal("notesModal");
+                }}>
+                <FontAwesomeIcon icon={faMessage}></FontAwesomeIcon>
+              </button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

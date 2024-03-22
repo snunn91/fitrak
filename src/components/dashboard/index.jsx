@@ -26,6 +26,7 @@ import {
 
 import WorkoutFilterModal from "./modals/workoutFilterModal";
 import MobileWeightInputModal from "./modals/mobileWeightInput";
+import NotesModal from "./modals/notesModal";
 import WeekSelector from "./components/weekSelector";
 import ExerciseTable from "./components/desktop/exerciseTable";
 import ExerciseCard from "./components/mobile/exerciseCard";
@@ -52,6 +53,7 @@ const Dashboard = () => {
   // const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
   const [activeInputId, setActiveInputId] = useState("");
+  const [currentExercise, setCurrentExercise] = useState("");
   const [activeExerciseName, setActiveExerciseName] = useState("");
 
   const [workoutData, setWorkoutData] = useState({});
@@ -302,7 +304,8 @@ const Dashboard = () => {
                     <ExerciseTable
                       exercisePlan={exercisesBBPPLOne}
                       handleInputChange={handleInputChange}
-                      workoutData={workoutData}></ExerciseTable>
+                      workoutData={workoutData}
+                      setCurrentExercise={setCurrentExercise}></ExerciseTable>
                   </div>
                 )}
                 {workoutType === "pplTwo" && (
@@ -310,7 +313,8 @@ const Dashboard = () => {
                     <ExerciseTable
                       exercisePlan={exercisesBBPPLTwo}
                       handleInputChange={handleInputChange}
-                      workoutData={workoutData}></ExerciseTable>
+                      workoutData={workoutData}
+                      setCurrentExercise={setCurrentExercise}></ExerciseTable>
                   </div>
                 )}
               </div>
@@ -319,7 +323,7 @@ const Dashboard = () => {
               <div>{/* table to go here */}</div>
             )}
           </CardBody>
-          <CardFooter className="flex justify-end px-3 pt-0 pb-3">
+          <CardFooter className="flex justify-end px-3 pb-3 border-t border-gray-200 border-solid">
             <Button
               data-hover="false"
               className="px-4 py-2 text-md text-white font-raleway rounded-lg bg-rose-900 hover:bg-rose-950 hover:shadow-xl hover:opacity-100 transition duration-300"
@@ -369,6 +373,7 @@ const Dashboard = () => {
                     workoutData={workoutData}
                     setActiveExerciseName={setActiveExerciseName}
                     setActiveInputId={setActiveInputId}
+                    setCurrentExercise={setCurrentExercise}
                     toggleModal={toggleModal}></ExerciseCard>
                 </div>
               )}
@@ -379,6 +384,7 @@ const Dashboard = () => {
                     workoutData={workoutData}
                     setActiveExerciseName={setActiveExerciseName}
                     setActiveInputId={setActiveInputId}
+                    setCurrentExercise={setCurrentExercise}
                     toggleModal={toggleModal}></ExerciseCard>
                 </div>
               )}
@@ -386,7 +392,10 @@ const Dashboard = () => {
           )}
         </div>
       </form>
-
+      <NotesModal
+        isModalOpen={modals.notesModal}
+        toggleModal={() => toggleModal("notesModal")}
+        exercise={currentExercise}></NotesModal>
       <WorkoutFilterModal
         isModalOpen={modals.workoutFilterModal}
         toggleModal={() => toggleModal("workoutFilterModal")}

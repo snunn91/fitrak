@@ -8,6 +8,7 @@ export const ModalProvider = ({ children }) => {
   const [modals, setModals] = useState({
     workoutFilterModal: false,
     mobileInputModal: false,
+    notesModal: false,
   });
 
   const toggleModal = (modalName) => {
