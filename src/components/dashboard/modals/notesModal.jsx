@@ -22,16 +22,27 @@ const NotesModal = ({ isModalOpen, toggleModal, exercise }) => {
         <ModalContent>
           {(onClose) => (
             <div>
-              <ModalHeader className="pt-4 pb-2">
+              <ModalHeader className="py-4">
                 <h2 className="text-xl font-raleway pt-2">
                   {exercise.name} Notes
                 </h2>
               </ModalHeader>
-              <ModalBody className="pt-0 pb-4">
-                <Link href={exercise.exerciseInfo}>
-                  Click here exercise instructions
-                </Link>
-                <p></p>
+              <ModalBody className="pt-2 pb-4">
+                <div className="flex flex-col gap-y-1">
+                  <Link
+                    className="font-semibold"
+                    href={exercise.exerciseInfo}
+                    target="_blank">
+                    Click here to view exercise instructions
+                  </Link>
+                  <p>
+                    {" "}
+                    <span className="font-semibold">
+                      Alternative Exercise:
+                    </span>{" "}
+                    {exercise.alternativeExercise}
+                  </p>
+                </div>
               </ModalBody>
               <ModalFooter>
                 <Button auto flat color="error" onPress={onClose}>

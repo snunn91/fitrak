@@ -8,11 +8,13 @@ export const exercises = {
   declineDumbbellBenchPress: "Decline Dumbbell Bench Press",
   inclineSmithMachineBenchPress: "Incline Smith Machine Bench Press",
   smithMachineBenchPress: "Smith Machine Bench Press",
-  chestFlyMachine: "Chest Fly Machine",
-  chestFlyDumbbell: "Chest Fly Dumbbell",
+  chestFlyMachine: "Chest Fly (Machine)",
+  chestFlyDumbbell: "Chest Fly (Dumbbells)",
+  floorChestFlyDumbbel: "Floor Chest Fly (Dumbbells)",
   pecDeckMachine: "Pec Deck Machine",
   cableCrossovers: "Cable Crossovers",
-  fullRomPushUp: "Full ROM Push Up",
+  fullRomPushUp: "Full ROM Push-Up",
+  declinePushUp: "Decline Push-UP",
   floorPressDumbbell: "Floor Press (Dumbbell)",
   svendPress: "Svend Press",
   chestDip: "Chest Dip",
@@ -36,6 +38,8 @@ export const exercises = {
   reverseGripBentOverRows: "Reverse Grip Bent-Over Rows",
   meadowsRow: "Meadows Row",
   baerbellRow: "Barbell Row",
+  dumbbellPullover: "Dumbbell Pullover",
+  dumbbellPulloverFloor: "Dumbbell Pullover (Floor)",
 
   // Legs
   barbellLowbarSquat: "Barbell Squat (Low Bar)",
@@ -49,7 +53,9 @@ export const exercises = {
   legExtensions: "Leg Extensions",
   calfRaisesStanding: "Calf Raises (Standing)",
   calfRaisesSeated: "Calf Raises (Seated)",
+  dumbellStandingRaises: "Standing Dumbbell Cald Raises",
   romanianDeadlift: "Romanian Deadlift",
+  romainainDeadliftDB: "Romainain Deadlift (Dumbbells)",
   barbellHipThrust: "Barbell Hip Thrust",
   bulgarianSplitSquat: "Bulgarian Split Squat",
   gobletSquat: "Goblet Squat",
@@ -59,12 +65,15 @@ export const exercises = {
   stepUps: "Step-Ups",
   thighAbductor: "Thigh Abductor",
   sissySquat: "Sissy Squat",
+  gluteBridgeBarbell: "Barbell Glute Bridge",
+  gluteBridge: "Glute Bridge",
 
   // Shoulders
   overheadPressBarbell: "Shoulder Press (Barbell)",
   dumbbellShoulderPress: "Dumbbell Shoulder Press",
+  alternatingDumbbellShoulderPress: "Alternating Dumbbell Shoulder Press",
   lateralRaises: "Lateral Raises",
-  frontDumbbellRaises: "Front Dumbbell Raises",
+  frontDumbbellRaises: "Front Raises (Dumbbells)",
   rearDeltFly: "Rear Delt Fly",
   reversePecDec: "Reverse Pec Dec Fly",
   shrugsBarbell: "Shrugs (Barbell)",
@@ -76,6 +85,7 @@ export const exercises = {
   seatedBentOverRearDeltRaise: "Seated Bent-Over Rear Delt Raise",
   standingDumbbellFly: "Standing Dumbbell Fly",
   egyptianLatRaise: "Egyptian Lat Raise",
+  bentOverRearDeltRow: "Bent-over Rear Delt Row (Dumbbells)",
 
   //Triceps
   tricepPulldownRope: "Tricep Push-down (Rope)",
@@ -85,9 +95,11 @@ export const exercises = {
   dumbbellTricepExtension: "Dumbbell Tricep Extension",
   tricepDips: "Tricep Dips",
   closeGripBenchPress: "Close-Grip Bench Press",
-  cableTricepKickback: "Cable Tricep Kickback",
+  cableTricepKickback: "Tricep Kickbacks (Cable)",
+  dumbbellTricepKickbacks: "Tricep Kickbacks (Dumbbell)",
   overheadTricepExtension: "Overhead Tricep Extension",
   closeGripPushup: "Close Stance Pushup",
+  singleArmDumbbellTricepExtension: "Single Arm Tricep Extension (Dumbbells)",
 
   // Biceps
   bicepCurlBarbell: "Bicep Curl (Barbell)",
@@ -104,6 +116,7 @@ export const exercises = {
 
   // Abs
   crunches: "Crunches",
+  crunchesWeighted: "Weighted Crunches",
   legRaises: "Leg Raises",
   plank: "Plank",
   russianTwist: "Russian Twist",
@@ -113,4 +126,5 @@ export const exercises = {
   vUps: "V-Ups",
   abWheelRollout: "Ab Wheel Rollout",
   cableCrunch: "Cable Crunch",
+  cocoon: "Cocoon",
 };

@@ -36,11 +36,11 @@ const MobileWeightInputModal = ({
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="pt-4 pb-2">
+            <ModalHeader className="py-4">
               {" "}
               <h2 className="text-xl font-raleway pt-4">{activeExercise}</h2>
             </ModalHeader>
-            <ModalBody className="pt-2 pb-4">
+            <ModalBody className="pt-2 pb-6">
               <Input
                 clearable
                 bordered

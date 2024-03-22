@@ -10,6 +10,7 @@ import {
 import {
   getExercisesBBPPLOne,
   getExercisesBBPPLTwo,
+  getExercisesBBHomeWithWeights,
 } from "../util/workouts/bodybuilding/workouts";
 // import { getExercisesPBPPLOne } from "../util/workouts/powerbuilding/workouts";
 import { useAuth } from "../../contexts/authContext";
@@ -50,6 +51,7 @@ const Dashboard = () => {
   //Workout Plans
   const exercisesBBPPLOne = getExercisesBBPPLOne(currentWeek);
   const exercisesBBPPLTwo = getExercisesBBPPLTwo(currentWeek);
+  const exerciseBBHomeWithWeights = getExercisesBBHomeWithWeights(currentWeek);
   // const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
   const [activeInputId, setActiveInputId] = useState("");
@@ -317,6 +319,15 @@ const Dashboard = () => {
                       setCurrentExercise={setCurrentExercise}></ExerciseTable>
                   </div>
                 )}
+                {workoutType === "homeWithWeights" && (
+                  <div>
+                    <ExerciseTable
+                      exercisePlan={exerciseBBHomeWithWeights}
+                      handleInputChange={handleInputChange}
+                      workoutData={workoutData}
+                      setCurrentExercise={setCurrentExercise}></ExerciseTable>
+                  </div>
+                )}
               </div>
             )}
             {trainingType === "powerbuilding" && workoutType === "pplOne" && (
@@ -381,6 +392,17 @@ const Dashboard = () => {
                 <div>
                   <ExerciseCard
                     exercisePlan={exercisesBBPPLTwo}
+                    workoutData={workoutData}
+                    setActiveExerciseName={setActiveExerciseName}
+                    setActiveInputId={setActiveInputId}
+                    setCurrentExercise={setCurrentExercise}
+                    toggleModal={toggleModal}></ExerciseCard>
+                </div>
+              )}
+              {workoutType === "homeWithWeights" && (
+                <div>
+                  <ExerciseCard
+                    exercisePlan={exerciseBBHomeWithWeights}
                     workoutData={workoutData}
                     setActiveExerciseName={setActiveExerciseName}
                     setActiveInputId={setActiveInputId}

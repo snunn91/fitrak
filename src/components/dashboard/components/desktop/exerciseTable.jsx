@@ -54,7 +54,11 @@ const ExerciseTable = ({
                 variant="underlined"
                 size="sm"
                 id={`${exercise.id}Input`}
-                value={workoutData[exercise.id]}
+                value={
+                  exercise.weightTag === "Bodyweight"
+                    ? exercise.weightTag
+                    : workoutData[exercise.id] || ""
+                }
                 onChange={(e) => handleInputChange(e, exercise.id)}
               />
             </TableCell>
