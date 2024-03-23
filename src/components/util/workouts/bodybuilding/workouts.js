@@ -1,10 +1,12 @@
 import { exercises } from "../../exercises";
+import { exerciseInstructions } from "../../exerciseInstructions";
 const getExercisesBBPPLOne = () => {
   return [
     {
       id: "exerciseOne",
       type: "Push",
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.barbellBenchPress,
       warmUpSets: 3,
       workingSets: 3,
@@ -18,6 +20,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwo",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.militaryPress,
       warmUpSets: 2,
       workingSets: 3,
@@ -31,6 +34,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseThree",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.skullCrushersEZBar,
       warmUpSets: 1,
       workingSets: 3,
@@ -44,6 +48,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseFour",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.fullRomPushUp,
       warmUpSets: 0,
       workingSets: 3,
@@ -57,6 +62,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseFive",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.tricepPulldownRope,
       warmUpSets: 0,
       workingSets: 3,
@@ -70,6 +76,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseSix",
       type: "Pull",
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.kneelingSingleArmLatPulldown,
       warmUpSets: 2,
       workingSets: 3,
@@ -83,6 +90,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseSeven",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.chestSupportedMachineRow,
       warmUpSets: 1,
       workingSets: 3,
@@ -96,6 +104,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseEight",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.rearDeltFly,
       warmUpSets: 1,
       workingSets: 3,
@@ -109,6 +118,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseNine",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.bicepCurlBarbell,
       warmUpSets: 2,
       workingSets: 3,
@@ -122,6 +132,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTen",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.hammerCurlDumbbell,
       warmUpSets: 0,
       workingSets: 4,
@@ -135,6 +146,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseEleven",
       type: "Legs", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.barbellHighbarSquat,
       warmUpSets: 3,
       workingSets: 3,
@@ -148,6 +160,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwelve",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.legCurlLying,
       warmUpSets: 1,
       workingSets: 3,
@@ -161,6 +174,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseThirteen",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.legExtensions,
       warmUpSets: 1,
       workingSets: 3,
@@ -174,6 +188,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseFourteen",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.calfRaisesStanding,
       warmUpSets: 1,
       workingSets: 3,
@@ -187,6 +202,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseFifteen",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.cableCrunch,
       warmUpSets: 0,
       workingSets: 3,
@@ -200,6 +216,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseSixteen",
       type: "Push", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.inclineSmithMachineBenchPress,
       warmUpSets: 2,
       workingSets: 3,
@@ -213,6 +230,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseSeventeen",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.overheadPressBarbell,
       warmUpSets: 2,
       workingSets: 3,
@@ -226,6 +244,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseEighteen",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.chestDip,
       warmUpSets: 1,
       workingSets: 3,
@@ -239,6 +258,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseNineteen",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.egyptianLatRaise,
       warmUpSets: 1,
       workingSets: 3,
@@ -252,6 +272,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwenty",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Push",
+      weightTag: "",
       name: exercises.cableTricepKickback,
       warmUpSets: 0,
       workingSets: 3,
@@ -265,6 +286,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyOne",
       type: "Pull", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.singleArmSeatedCableRow,
       warmUpSets: 2,
       workingSets: 3,
@@ -278,7 +300,8 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyTwo",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
-      name: exercises.meadowsRow,
+      weightTag: "",
+      name: exercises.landmineRow,
       warmUpSets: 1,
       workingSets: 3,
       reps: "10-12",
@@ -291,6 +314,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyThree",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.reversePecDec,
       warmUpSets: 1,
       workingSets: 3,
@@ -304,6 +328,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyFour",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.twentyOnesBarbell,
       warmUpSets: 1,
       workingSets: 3,
@@ -317,6 +342,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyFive",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Pull",
+      weightTag: "",
       name: exercises.bayesianCableCurl,
       warmUpSets: 0,
       workingSets: 3,
@@ -330,6 +356,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentySix",
       type: "Legs", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.legPress,
       warmUpSets: 2,
       workingSets: 3,
@@ -343,6 +370,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyseven",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.romanianDeadlift,
       warmUpSets: 2,
       workingSets: 3,
@@ -356,6 +384,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyEight",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.bulgarianSplitSquat,
       warmUpSets: 0,
       workingSets: 3,
@@ -369,6 +398,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseTwentyNine",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.calfRaisesSeated,
       warmUpSets: 1,
       workingSets: 3,
@@ -382,6 +412,7 @@ const getExercisesBBPPLOne = () => {
       id: "exerciseThirty",
       type: "", // Leave type empty for subsequent rows that share the same type
       typeMobile: "Legs",
+      weightTag: "",
       name: exercises.legRaises,
       warmUpSets: 0,
       workingSets: 3,
@@ -806,8 +837,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/dumbbell-floor-press",
+      exerciseInfo: exerciseInstructions.floorPressDumbbell,
       alternativeExercise: "Push-Up",
     },
     {
@@ -821,8 +851,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/dumbbell-goblet-squat",
+      exerciseInfo: exerciseInstructions.gobletSquat,
       alternativeExercise: "Bodyweight Squat",
     },
     {
@@ -836,8 +865,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "12-15",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/dumbbell-bicep-curl",
+      exerciseInfo: exerciseInstructions.bicepCurlDumbbell,
       alternativeExercise: "Barbell Curl",
     },
     {
@@ -851,7 +879,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "12-15",
       RPE: 8,
       rest: "1-2",
-      exerciseInfo: "",
+      exerciseInfo: exerciseInstructions.closeGripPushup,
       alternativeExercise: "",
     },
     {
@@ -865,8 +893,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/standing-alternating-dumbbell-press",
+      exerciseInfo: exerciseInstructions.alternatingDumbbellShoulderPress,
       alternativeExercise: "Arnold Press",
     },
     {
@@ -880,8 +907,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/one-arm-dumbbell-row",
+      exerciseInfo: exerciseInstructions.dumbbellSingleArmRow,
       alternativeExercise: "Helms Row",
     },
     {
@@ -889,14 +915,13 @@ const getExercisesBBHomeWithWeights = () => {
       type: "",
       typeMobile: "Full Body (Day 1)",
       weightTag: "",
-      name: exercises.dumbellStandingRaises,
+      name: exercises.dumbellStandingCalfRaises,
       warmUpSets: 1,
       workingSets: 4,
       reps: "12-15",
       RPE: 8,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/standing-dumbbell-calf-raise",
+      exerciseInfo: exerciseInstructions.dumbellStandingCalfRaises,
       alternativeExercise: "Standing Calf Raises (Bodyweight)",
     },
     {
@@ -910,8 +935,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/dumbbell-fix-dumbbell-floor-chest-fly",
+      exerciseInfo: exerciseInstructions.floorChestFlyDumbbel,
       alternativeExercise: "Chest Fly Dumbbells (Bench)",
     },
     {
@@ -925,7 +949,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "15-20",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/butt-lift-bridge",
+      exerciseInfo: exerciseInstructions.gluteBridge,
       alternativeExercise: "Glute Bridge Barbell Or Dumbbell",
     },
     {
@@ -939,8 +963,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "8-10",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/romanian-deadlift-with-dumbbells",
+      exerciseInfo: exerciseInstructions.romainainDeadliftDB,
       alternativeExercise: "Romanian Deadlift (Barbell)",
     },
     {
@@ -954,7 +977,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/hammer-curls",
+      exerciseInfo: exerciseInstructions.hammerCurlDumbbell,
       alternativeExercise: "Bicep Curl",
     },
     {
@@ -968,8 +991,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 9,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/dumbbell-one-arm-triceps-extension",
+      exerciseInfo: exerciseInstructions.singleArmDumbbellTricepExtension,
       alternativeExercise: "Dumbbell Skull Crusher",
     },
     {
@@ -983,7 +1005,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/dumbbell-shrug",
+      exerciseInfo: exerciseInstructions.shrugsDumbbell,
       alternativeExercise: "Laying side down Lateral Raises",
     },
     {
@@ -997,7 +1019,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "12-15",
       RPE: 10,
       rest: "30sec",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/weighted-crunches",
+      exerciseInfo: exerciseInstructions.crunchesWeighted,
       alternativeExercise: "Laying Leg Raises",
     },
     {
@@ -1011,7 +1033,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "12-15",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/decline-push-up",
+      exerciseInfo: exerciseInstructions.declinePushUp,
       alternativeExercise: "Incline Dumbbell Bench Press",
     },
     {
@@ -1025,8 +1047,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 10,
       rest: "2-3",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/split-squat-with-dumbbells",
+      exerciseInfo: exerciseInstructions.bulgarianSplitSquat,
       alternativeExercise: "Lunges",
     },
     {
@@ -1040,7 +1061,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/zottman-curl",
+      exerciseInfo: exerciseInstructions.zottmanCurl,
       alternativeExercise: "Reverse Bicep Curl",
     },
     {
@@ -1054,8 +1075,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/tricep-dumbbell-kickback",
+      exerciseInfo: exerciseInstructions.dumbbellTricepKickbacks,
       alternativeExercise: "Skull Crushers (Dumbbell)",
     },
     {
@@ -1069,8 +1089,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/dumbbell-fix-dumbbell-pull-over",
+      exerciseInfo: exerciseInstructions.dumbbellPulloverFloor,
       alternativeExercise: "Dumbbell Dead Row",
     },
     {
@@ -1084,8 +1103,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo:
-        "https://www.bodybuilding.com/exercises/dumbbell-fix-dumbbell-pull-over",
+      exerciseInfo: exerciseInstructions.frontDumbbellRaises,
       alternativeExercise: "Arnold Press",
     },
     {
@@ -1099,7 +1117,7 @@ const getExercisesBBHomeWithWeights = () => {
       reps: "10-12",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/side-lateral-raise",
+      exerciseInfo: exerciseInstructions.lateralRaises,
       alternativeExercise: "Laying side down Lateral Raises",
     },
     {
@@ -1107,13 +1125,13 @@ const getExercisesBBHomeWithWeights = () => {
       type: "",
       typeMobile: "Full Body (Day 3)",
       weightTag: "",
-      name: exercises.vUps,
+      name: exercises.jackknifeSitUp,
       warmUpSets: 2,
       workingSets: 3,
       reps: "12-15",
       RPE: 10,
       rest: "1-2",
-      exerciseInfo: "https://www.bodybuilding.com/exercises/jackknife-sit-up",
+      exerciseInfo: exerciseInstructions.jackknifeSitUp,
       alternativeExercise: "Coccon",
     },
   ];
