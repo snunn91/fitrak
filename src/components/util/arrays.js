@@ -11,14 +11,34 @@ const workoutMapping = {
   powerbuilding: ["pplOne", "upperLowerTwo"],
 };
 const workouts = [
-  { label: "Push Pull Legs (Option 1)", value: "pplOne" },
-  { label: "Push Pull Legs (Option 2)", value: "pplTwo" },
-  { label: "Full Body", value: "fullBodyOne" },
-  { label: "Full Body", value: "fullBodyTwo" },
-  { label: "Upper Lower", value: "upperLowerOne" },
-  { label: "Upper Lower", value: "upperLowerTwo" },
-  { label: "Home (Dumbbells required)", value: "homeWithWeights" },
-  { label: "Home (No Equipment required)", value: "homeWithoutWeights" },
+  {
+    label: "Push Pull Legs",
+    suffix: "(Option 1)",
+    value: "pplOne",
+    difficulty: "Intermediate",
+  },
+  {
+    label: "Push Pull Legs",
+    suffix: "(Option 2)",
+    value: "pplTwo",
+    difficulty: "Intermediate",
+  },
+  { label: "Full Body", suffix: "", value: "fullBodyOne", difficulty: "" },
+  { label: "Full Body", suffix: "", value: "fullBodyTwo", difficulty: "" },
+  { label: "Upper Lower", suffix: "", value: "upperLowerOne", difficulty: "" },
+  { label: "Upper Lower", suffix: "", value: "upperLowerTwo", difficulty: "" },
+  {
+    label: "Home",
+    suffix: "(Dumbbells required)",
+    value: "homeWithWeights",
+    difficulty: "Beginner",
+  },
+  {
+    label: "Home",
+    suffix: "(No Equipment required)",
+    value: "homeWithoutWeights",
+    difficulty: "",
+  },
 ];
 const weekOptions = [
   { label: "Week 1", value: "weekOne" },

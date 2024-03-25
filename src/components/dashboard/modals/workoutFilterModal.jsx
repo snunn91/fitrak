@@ -25,6 +25,10 @@ function WorkoutFilterModal({
   setWorkoutType,
   filteredWorkouts,
 }) {
+  //Grabbing the label based on the trainingType value. This will be used for my Carousel that needs the label passed to it.
+  const trainingTypeLabel = trainingTypeOptions.find(
+    (option) => option.value === trainingType
+  )?.label;
   const [isTrainingChecked, setTrainingIsChecked] = useState(false);
   const [isWorkoutChecked, setIsWorkoutChecked] = useState(false);
 
@@ -41,7 +45,7 @@ function WorkoutFilterModal({
   return (
     <Modal
       backdrop="opaque"
-      size="4xl"
+      size="3xl"
       isOpen={isModalOpen}
       onClose={toggleModal}
       classNames={{
@@ -51,8 +55,10 @@ function WorkoutFilterModal({
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="py-4">
-              <h2 className="text-xl font-raleway pt-4">Choose your workout</h2>
+            <ModalHeader className="py-4 justify-center">
+              <h2 className="text-xl font-raleway pt-4 text-center">
+                Choose your workout
+              </h2>
             </ModalHeader>
             <ModalBody className="pt-2 pb-6">
               <div className="mb-4 w-full">
@@ -60,12 +66,21 @@ function WorkoutFilterModal({
                   {trainingTypeOptions.map((option) => (
                     <div key={option.value} className="">
                       <label
-                        className={`relative flex flex-col items-center justify-center gap-y-1 cursor-pointer p-4 bg-stone-200 rounded-lg hover:bg-stone-300 w-[150px] h-[150px] ${
+                        className={`relative flex flex-col items-center justify-center gap-y-1 w-[100px] h-[100px]  cursor-pointer p-4 bg-stone-100 rounded-lg hover:bg-stone-200 hover:shadow-xl hover:opacity-100 transition duration-300 sm:w-[150px] sm:h-[150px] ${
                           trainingType === option.value
                             ? "ring-2 ring-rose-900 "
                             : ""
                         }`}>
-                        <div
+                        {option.value === "bodybuilding" && (
+                          <div className="realtive bg-bodybuildingIcon bg-cover bg-center bg-no-repeat h-[36px] w-[52px] sm:h-[55px] sm:w-[80px] "></div>
+                        )}
+                        {option.value === "strength" && (
+                          <div className="realtive bg-strengthIcon bg-cover bg-center bg-no-repeat h-[36px] w-[51px] sm:h-[55px] sm:w-[78px] "></div>
+                        )}
+                        {option.value === "powerbuilding" && (
+                          <div className="realtive bg-powerbuildingIcon bg-cover bg-center bg-no-repeat h-[36px] w-[46px] sm:h-[55px] sm:w-[70px] "></div>
+                        )}
+                        {/* <div
                           style={{
                             backgroundImage:
                               option.value === "bodybuilding"
@@ -75,8 +90,24 @@ function WorkoutFilterModal({
                                 : option.value === "strength"
                                 ? `url(${StrengthIcon})`
                                 : "",
+                            height:
+                              option.value === "bodybuilding"
+                                ? "55px"
+                                : option.value === "strength"
+                                ? "55px"
+                                : option.value === "powerbuilding"
+                                ? "56px"
+                                : "",
+                            width:
+                              option.value === "bodybuilding"
+                                ? "80px"
+                                : option.value === "strength"
+                                ? "80px"
+                                : option.value === "powerbuilding"
+                                ? "70px"
+                                : "",
                           }}
-                          className="relative h-[65px] w-[250px] bg-cover bg-center bg-no-repeat"></div>
+                          className="relative h-[65px] w-[250px] bg-cover bg-center bg-no-repeat"></div> */}
                         <input
                           type="radio"
                           name="trainingType"
@@ -94,7 +125,7 @@ function WorkoutFilterModal({
                             }`}
                             icon={faCircleCheck}></FontAwesomeIcon>
                         )}
-                        <span className="font-raleway font-semibold text- ">
+                        <span className="font-raleway font-semibold text-sm sm:text-md">
                           {option.label}
                         </span>
                       </label>
@@ -108,6 +139,7 @@ function WorkoutFilterModal({
                 workoutType={workoutType}
                 handleWorkoutType={handleWorkoutType}
                 isWorkoutChecked={isWorkoutChecked}
+                trainingTypeLabel={trainingTypeLabel}
               />
             </ModalBody>
             <ModalFooter>

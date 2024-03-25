@@ -3,7 +3,12 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
-function WorkoutCarousel({ filteredWorkouts, workoutType, handleWorkoutType }) {
+function WorkoutCarousel({
+  filteredWorkouts,
+  workoutType,
+  handleWorkoutType,
+  trainingTypeLabel,
+}) {
   const settings = {
     dots: true,
     infinite: false,
@@ -46,7 +51,7 @@ function WorkoutCarousel({ filteredWorkouts, workoutType, handleWorkoutType }) {
       <Slider {...settings}>
         {filteredWorkouts.map((option) => (
           <label
-            className={`relative cursor-pointer p-4 bg-stone-200 rounded-lg hover:bg-stone-300 w-[200px] h-[75px] ${
+            className={`relative h-fit !flex items-start flex-col cursor-pointer pt-4 pe-4 pb-2 ps-4 bg-stone-100 rounded-lg hover:bg-stone-200 hover:shadow-md hover:opacity-100 transition duration-300 ${
               workoutType === option.value ? "ring-2 ring-rose-900" : ""
             }`}>
             <input
@@ -58,13 +63,30 @@ function WorkoutCarousel({ filteredWorkouts, workoutType, handleWorkoutType }) {
               className="mr-2 appearance-none" // Hide the default radio button appearance
             />
             {workoutType === option.value && (
-              <div className="absolute top-[-15px] left-[160px]">
+              <div className="absolute top-[-15px] left-[45%]">
                 <FontAwesomeIcon
-                  className=" bg-white rounded-full text-3xl top-[-16px] left-[60px] text-rose-900"
+                  className=" bg-white rounded-full text-3xl text-rose-900"
                   icon={faCircleCheck}></FontAwesomeIcon>
               </div>
             )}
-            <span className="select-none">{option.label}</span>
+            <div className="flex flex-col gap-y-4">
+              <div className="flex items-center justify-between gap-1">
+                <h3 className="font-roboto font-semibold text-md">
+                  {option.label}
+                </h3>
+                <h3 className="font-roboto font-semibold text-md italic">
+                  {option.suffix}
+                </h3>
+              </div>
+              <div className="flex items-center justify-start gap-2">
+                <h4 className="font-roboto font-light text-sm italic after:border-r-1 after:border-stone-500 after:ps-2">
+                  {trainingTypeLabel}
+                </h4>
+                <h4 className="font-roboto font-light text-sm italic">
+                  {option.difficulty}
+                </h4>
+              </div>
+            </div>
           </label>
         ))}
       </Slider>

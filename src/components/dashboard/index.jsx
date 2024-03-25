@@ -60,9 +60,6 @@ const Dashboard = () => {
 
   const [workoutData, setWorkoutData] = useState({});
 
-  // const [personalDetailsType, setPersonalDetailsType] = useState("");
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [filteredWorkouts, setFilteredWorkouts] = useState([]);
@@ -151,6 +148,16 @@ const Dashboard = () => {
             exerciseEighteen: data.exerciseEighteen || "",
             exerciseNineteen: data.exerciseNineteen || "",
             exerciseTwenty: data.exerciseTwenty || "",
+            exerciseTwentyOne: data.exerciseTwentyOne || "",
+            exerciseTwentyTwo: data.exerciseTwentyTwo || "",
+            exerciseTwentyThree: data.exerciseTwentyThree || "",
+            exerciseTwentyFour: data.exerciseTwentyFour || "",
+            exerciseTwentyFive: data.exerciseTwentyFive || "",
+            exerciseTwentySix: data.exerciseTwentySix || "",
+            exerciseTwentySeven: data.exerciseTwentySeven || "",
+            exerciseTwentyEight: data.exerciseTwentyEight || "",
+            exerciseTwentyNine: data.exerciseTwentyNine || "",
+            exerciseThirty: data.exerciseThirty || "",
           });
         }
       } catch (error) {
@@ -273,12 +280,20 @@ const Dashboard = () => {
                 }
               </h2>
               <div className="flex items-center justify-start gap-3">
-                <h3 className="font-raleway text-xl">
-                  {
-                    workouts.find((option) => option.value === workoutType)
-                      ?.label
-                  }
-                </h3>
+                <div className="flex items-center justify-start gap-1">
+                  <h3 className="font-raleway text-xl">
+                    {
+                      workouts.find((option) => option.value === workoutType)
+                        ?.label
+                    }
+                  </h3>
+                  <h3 className="font-raleway text-xl italic">
+                    {
+                      workouts.find((option) => option.value === workoutType)
+                        ?.suffix
+                    }
+                  </h3>
+                </div>
 
                 <h4 className="font-raleway text-xl">
                   -&nbsp;

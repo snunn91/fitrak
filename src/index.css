@@ -61,7 +61,19 @@ nav header ul {
   color: #a8a29e !important;
   font-size: 40px !important;
 }
-
+/* Append Dots */
+.slick-dots li button:before {
+  font-size: 0.75rem !important;
+}
+.slick-dots li.slick-active button:before {
+  color: #881337 !important;
+  opacity: 1 !important;
+}
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+  color: #881337 !important;
+  opacity: 0.6 !important;
+}
 /*
 ==========
 Keyframes

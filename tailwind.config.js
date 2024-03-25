@@ -14,6 +14,11 @@ module.exports = {
         fadeIn: "fadeIn .5s ease-in-out",
         fadeOut: "fadeOut .5s ease-in-out",
       },
+      backgroundImage: {
+        bodybuildingIcon: "url('../src/assets/icons/bodybuilding-icon.png')",
+        strengthIcon: "url('../src/assets/icons/strength-icon.png')",
+        powerbuildingIcon: "url('../src/assets/icons/powerbuilding-icon.png')",
+      },
     },
   },
   darkMode: "class",
