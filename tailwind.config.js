@@ -10,6 +10,10 @@ module.exports = {
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
       },
+      animation: {
+        fadeIn: "fadeIn .5s ease-in-out",
+        fadeOut: "fadeOut .5s ease-in-out",
+      },
     },
   },
   darkMode: "class",
