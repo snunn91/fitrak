@@ -12,9 +12,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import WorkoutCarousel from "../../util/workouts/workoutCarousel";
-import BodybuildingIcon from "../../../assets/icons/bodybuilding-icon.png";
-import PowerbuildingIcon from "../../../assets/icons/powerbuilding-icon.png";
-import StrengthIcon from "../../../assets/icons/strength-icon.png";
 
 function WorkoutFilterModal({
   isModalOpen,

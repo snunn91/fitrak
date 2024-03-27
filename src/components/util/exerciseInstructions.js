@@ -71,9 +71,11 @@ export const exerciseInstructions = {
   goodMornings: "",
   calfRaisesStanding: "",
   calfRaisesSeated: "",
-  dumbellStandingRaises:
+  dumbellStandingCalfRaises:
     "https://www.bodybuilding.com/exercises/standing-dumbbell-calf-raise",
-  romanianDeadlift: "",
+  calfRaiseLegPress:
+    "https://www.bodybuilding.com/exercises/calf-press-on-the-leg-press-machine",
+  romanianDeadlift: "https://www.bodybuilding.com/exercises/romanian-deadlift",
   romainainDeadliftDB:
     "https://www.bodybuilding.com/exercises/romanian-deadlift-with-dumbbells",
   barbellHipThrust: "",
@@ -94,11 +96,15 @@ export const exerciseInstructions = {
   dumbbellShoulderPress: "",
   alternatingDumbbellShoulderPress:
     "https://www.bodybuilding.com/exercises/standing-alternating-dumbbell-press",
+  smithMachineShoulderPress:
+    "https://www.bodybuilding.com/exercises/smith-machine-overhead-shoulder-press",
+  machineShoulderPress:
+    "https://www.bodybuilding.com/exercises/leverage-shoulder-press",
   lateralRaises: "https://www.bodybuilding.com/exercises/side-lateral-raise",
   frontDumbbellRaises:
     "https://www.bodybuilding.com/exercises/front-two-dumbbell-raise",
   rearDeltFly: "",
-  reversePecDec: "",
+  reversePecDec: "https://www.bodybuilding.com/exercises/am-reverse-pec-dec",
   shrugsBarbell: "",
   shrugsDumbbell: "https://www.bodybuilding.com/exercises/dumbbell-shrug",
   facePulls: "",
@@ -134,6 +140,8 @@ export const exerciseInstructions = {
     "https://www.bodybuilding.com/exercises/dumbbell-bicep-curl",
   twentyOnesBarbell: "",
   twentyOnesDumbbell: "",
+  seatedInclineDumbbellCurl:
+    "https://www.bodybuilding.com/exercises/alternate-incline-dumbbell-curl",
   bayesianCableCurl: "",
   hammerCurlDumbbell: "https://www.bodybuilding.com/exercises/hammer-curls",
   preacherCurlBarbell: "",
@@ -145,6 +153,7 @@ export const exerciseInstructions = {
   // Abs
   crunches: "",
   crunchesWeighted: "https://www.bodybuilding.com/exercises/weighted-crunches",
+  abCrunchMachine: "https://www.bodybuilding.com/exercises/ab-crunch-machine",
   legRaises: "",
   plank: "",
   russianTwist: "",

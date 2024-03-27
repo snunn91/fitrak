@@ -33,6 +33,7 @@ const ExerciseTable = ({
         <TableColumn>Reps</TableColumn>
         <TableColumn>Weight</TableColumn>
         <TableColumn>RPE</TableColumn>
+        <TableColumn>%1RM</TableColumn>
         <TableColumn>Rest Time</TableColumn>
         <TableColumn>Notes</TableColumn>
       </TableHeader>
@@ -63,6 +64,7 @@ const ExerciseTable = ({
               />
             </TableCell>
             <TableCell>{exercise.RPE}</TableCell>
+            <TableCell>{exercise.OneRepMax}</TableCell>
             <TableCell>{exercise.rest}</TableCell>
             <TableCell>
               <button

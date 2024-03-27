@@ -5,7 +5,7 @@ import {
   doSignInWithGoogle,
 } from "../../firebase/auth";
 import { Navigate } from "react-router-dom";
-import heroImage from "../../assets/img/homepage/hero.jpg";
+import heroImage from "../../assets/img/homepage/hero-2.webp";
 import logo from "../../assets/img/homepage/fitrak.png";
 import LoginForm from "../auth/components/loginForm";
 import { Button, Link } from "@nextui-org/react";

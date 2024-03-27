@@ -11,8 +11,9 @@ import {
   getExercisesBBPPLOne,
   getExercisesBBPPLTwo,
   getExercisesBBHomeWithWeights,
+  getExerciseBBUpperLower,
 } from "../util/workouts/bodybuilding/workouts";
-// import { getExercisesPBPPLOne } from "../util/workouts/powerbuilding/workouts";
+
 import { useAuth } from "../../contexts/authContext";
 import { useModal } from "../../contexts/modalContext/modalContext";
 //NextUI
@@ -37,13 +38,18 @@ const Dashboard = () => {
   const { currentUser } = useAuth();
   const { modals, toggleModal } = useModal();
 
+  // Local storage allows user to see the training type they last selected.
+  // If they selected none, defaults to bodybuilding
   const [trainingType, setTrainingType] = useState(
     localStorage.getItem("trainingType") || "bodybuilding"
   );
+  // Local storage allows user to see the workout type they last selected.
+  // If they selected none, defaults to PPL one bodybuilding
   const [workoutType, setWorkoutType] = useState(
-    localStorage.getItem("workoutType") || "pplOne"
+    localStorage.getItem("workoutType") || "pplOneBB"
   );
-
+  // Local storage allows user to see the latest weeken they last selected.
+  // If they selected none, defaults to week 1
   const [currentWeek, setCurrentWeek] = useState(
     localStorage.getItem("currentWeek") || "weekOne"
   );
@@ -52,6 +58,7 @@ const Dashboard = () => {
   const exercisesBBPPLOne = getExercisesBBPPLOne(currentWeek);
   const exercisesBBPPLTwo = getExercisesBBPPLTwo(currentWeek);
   const exerciseBBHomeWithWeights = getExercisesBBHomeWithWeights(currentWeek);
+  const exerciseBBULOne = getExerciseBBUpperLower(currentWeek);
   // const exercisesPBPPLOne = getExercisesPBPPLOne(currentWeek);
 
   const [activeInputId, setActiveInputId] = useState("");
@@ -66,9 +73,9 @@ const Dashboard = () => {
 
   //Week gebnerator depending on which training type and workout plan
   const getWeekOptionsToDisplay = () => {
-    if (trainingType === "bodybuilding" && workoutType === "pplOne") {
+    if (trainingType === "bodybuilding" && workoutType === "pplOneBB") {
       return weekOptions.slice(0, 10); // First 10 weeks for bodybuilding & pplOne
-    } else if (trainingType === "bodybuilding" && workoutType === "pplTwo") {
+    } else if (trainingType === "bodybuilding" && workoutType === "pplTwoBB") {
       return weekOptions.slice(0, 10);
     } else {
       return weekOptions; // Default to first 10 weeks for other cases
@@ -158,6 +165,12 @@ const Dashboard = () => {
             exerciseTwentyEight: data.exerciseTwentyEight || "",
             exerciseTwentyNine: data.exerciseTwentyNine || "",
             exerciseThirty: data.exerciseThirty || "",
+            exerciseThirtyOne: data.exerciseThirtyOne || "",
+            exerciseThirtyTwo: data.exerciseThirtyTwo || "",
+            exerciseThirtyThree: data.exerciseThirtyThree || "",
+            exerciseThirtyFour: data.exerciseThirtyFour || "",
+            exerciseThirtyFive: data.exerciseThirtyFive || "",
+            exerciseThirtySix: data.exerciseThirtySix || "",
           });
         }
       } catch (error) {
@@ -316,7 +329,7 @@ const Dashboard = () => {
           <CardBody>
             {trainingType === "bodybuilding" && (
               <div>
-                {workoutType === "pplOne" && (
+                {workoutType === "pplOneBB" && (
                   <div>
                     <ExerciseTable
                       exercisePlan={exercisesBBPPLOne}
@@ -325,7 +338,7 @@ const Dashboard = () => {
                       setCurrentExercise={setCurrentExercise}></ExerciseTable>
                   </div>
                 )}
-                {workoutType === "pplTwo" && (
+                {workoutType === "pplTwoBB" && (
                   <div>
                     <ExerciseTable
                       exercisePlan={exercisesBBPPLTwo}
@@ -334,7 +347,17 @@ const Dashboard = () => {
                       setCurrentExercise={setCurrentExercise}></ExerciseTable>
                   </div>
                 )}
-                {workoutType === "homeWithWeights" && (
+                {workoutType === "upperLowerOneBB" && (
+                  <div>
+                    <ExerciseTable
+                      hasOneRepMax={false}
+                      exercisePlan={exerciseBBULOne}
+                      handleInputChange={handleInputChange}
+                      workoutData={workoutData}
+                      setCurrentExercise={setCurrentExercise}></ExerciseTable>
+                  </div>
+                )}
+                {workoutType === "homeWithWeightsBB" && (
                   <div>
                     <ExerciseTable
                       exercisePlan={exerciseBBHomeWithWeights}
@@ -345,8 +368,49 @@ const Dashboard = () => {
                 )}
               </div>
             )}
-            {trainingType === "powerbuilding" && workoutType === "pplOne" && (
-              <div>{/* table to go here */}</div>
+            {trainingType === "strength" && (
+              <div>
+                {workoutType === "fullBodyOneS" ? (
+                  <div></div>
+                ) : (
+                  <div className="flex items-center justify-center h-[300px] bg-stone-50">
+                    <h3 className="font-raleway text-3xl ">
+                      Plan Comming Soon
+                    </h3>
+                  </div>
+                )}
+                {workoutType === "fullBodyTwoS" ? (
+                  <div></div>
+                ) : (
+                  <div className="flex items-center justify-center h-[300px] bg-stone-50">
+                    <h3 className="font-raleway text-3xl ">
+                      Plan Comming Soon
+                    </h3>
+                  </div>
+                )}
+              </div>
+            )}
+            {trainingType === "powerbuilding" && (
+              <div>
+                {workoutType === "pplOnePB" ? (
+                  <div></div>
+                ) : (
+                  <div className="flex items-center justify-center h-[300px] bg-stone-50">
+                    <h3 className="font-raleway text-3xl ">
+                      Plan Comming Soon
+                    </h3>
+                  </div>
+                )}
+                {workoutType === "upperLowerOnePB" ? (
+                  <div></div>
+                ) : (
+                  <div className="flex items-center justify-center h-[300px] bg-stone-50">
+                    <h3 className="font-raleway text-3xl ">
+                      Plan Comming Soon
+                    </h3>
+                  </div>
+                )}
+              </div>
             )}
           </CardBody>
           <CardFooter className="flex justify-end px-3 pb-3 border-t border-gray-200 border-solid">
@@ -371,9 +435,20 @@ const Dashboard = () => {
               }
             </h2>
             <div className="flex items-center justify-start gap-3">
-              <h3 className="font-raleway text-lg">
-                {workouts.find((option) => option.value === workoutType)?.label}
-              </h3>
+              <div className="flex items-center justify-start gap-1">
+                <h3 className="font-raleway text-lg">
+                  {
+                    workouts.find((option) => option.value === workoutType)
+                      ?.label
+                  }
+                </h3>
+                <h3 className="font-raleway text-lg italic">
+                  {
+                    workouts.find((option) => option.value === workoutType)
+                      ?.suffix
+                  }
+                </h3>
+              </div>
 
               <h4 className="font-raleway text-lg">
                 -&nbsp;
@@ -392,7 +467,7 @@ const Dashboard = () => {
 
           {trainingType === "bodybuilding" && (
             <div>
-              {workoutType === "pplOne" && (
+              {workoutType === "pplOneBB" && (
                 <div>
                   <ExerciseCard
                     exercisePlan={exercisesBBPPLOne}
@@ -403,7 +478,7 @@ const Dashboard = () => {
                     toggleModal={toggleModal}></ExerciseCard>
                 </div>
               )}
-              {workoutType === "pplTwo" && (
+              {workoutType === "pplTwoBB" && (
                 <div>
                   <ExerciseCard
                     exercisePlan={exercisesBBPPLTwo}
@@ -414,7 +489,18 @@ const Dashboard = () => {
                     toggleModal={toggleModal}></ExerciseCard>
                 </div>
               )}
-              {workoutType === "homeWithWeights" && (
+              {workoutType === "upperLowerOneBB" && (
+                <div>
+                  <ExerciseCard
+                    exercisePlan={exerciseBBULOne}
+                    workoutData={workoutData}
+                    setActiveExerciseName={setActiveExerciseName}
+                    setActiveInputId={setActiveInputId}
+                    setCurrentExercise={setCurrentExercise}
+                    toggleModal={toggleModal}></ExerciseCard>
+                </div>
+              )}
+              {workoutType === "homeWithWeightsBB" && (
                 <div>
                   <ExerciseCard
                     exercisePlan={exerciseBBHomeWithWeights}

@@ -1,38 +1,68 @@
 // import { exercises } from "../dashboard/util/exercises";
-
+const difficulty = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+  expert: "Expert",
+};
 const trainingTypeOptions = [
   { label: "Bodybuilding", value: "bodybuilding" },
   { label: "Strength", value: "strength" },
   { label: "Powerbuilding", value: "powerbuilding" },
 ];
 const workoutMapping = {
-  bodybuilding: ["pplOne", "pplTwo", "upperLowerOne", "homeWithWeights"],
-  strength: ["fullBodyOne", "fullBodyTwo"],
-  powerbuilding: ["pplOne", "upperLowerTwo"],
+  bodybuilding: [
+    "pplOneBB",
+    "pplTwoBB",
+    "upperLowerOneBB",
+    "homeWithWeightsBB",
+  ],
+  strength: ["fullBodyOneS", "fullBodyTwoS"],
+  powerbuilding: ["pplOnePB", "upperLowerOnePB"],
 };
 const workouts = [
+  //Bodybuilding
   {
     label: "Push Pull Legs",
     suffix: "(Option 1)",
-    value: "pplOne",
-    difficulty: "Intermediate",
+    value: "pplOneBB",
+    difficulty: difficulty.intermediate,
   },
   {
     label: "Push Pull Legs",
     suffix: "(Option 2)",
-    value: "pplTwo",
-    difficulty: "Intermediate",
+    value: "pplTwoBB",
+    difficulty: difficulty.intermediate,
   },
-  { label: "Full Body", suffix: "", value: "fullBodyOne", difficulty: "" },
-  { label: "Full Body", suffix: "", value: "fullBodyTwo", difficulty: "" },
-  { label: "Upper Lower", suffix: "", value: "upperLowerOne", difficulty: "" },
-  { label: "Upper Lower", suffix: "", value: "upperLowerTwo", difficulty: "" },
+  {
+    label: "Upper Lower",
+    suffix: "",
+    value: "upperLowerOneBB",
+    difficulty: difficulty.advanced,
+  },
   {
     label: "Home",
     suffix: "(Dumbbells required)",
-    value: "homeWithWeights",
-    difficulty: "Beginner",
+    value: "homeWithWeightsBB",
+    difficulty: difficulty.beginner,
   },
+  // Strength
+  { label: "Full Body", suffix: "", value: "fullBodyOneS", difficulty: "" },
+  { label: "Full Body", suffix: "", value: "fullBodyTwoS", difficulty: "" },
+  // Powerbuilding
+  {
+    label: "Push Pull Legs",
+    suffix: "",
+    value: "pplOnePB",
+    difficulty: difficulty.intermediate,
+  },
+  {
+    label: "Upper Lower",
+    suffix: "",
+    value: "upperLowerOnePB",
+    difficulty: difficulty.intermediate,
+  },
+
   {
     label: "Home",
     suffix: "(No Equipment required)",
